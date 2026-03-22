@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { Car, Gem, BarChart3 } from 'lucide-react';
 import { NavLink } from '../components/NavLink';
 import { FeatureCard } from '../components/FeatureCard';
 import { FAQItem } from '../components/FAQItem';
@@ -27,19 +28,19 @@ const BRANDS = [
 const FEATURE_CARDS = [
   {
     id: 'luxury',
-    emoji: '🚗',
+    icon: Gem,
     title: 'Used Exotic Luxury',
     description: 'Premium vehicles at market value',
   },
   {
     id: 'everyday',
-    emoji: '🏎️',
+    icon: Car,
     title: 'Modern Everyday Cars',
     description: 'Reliable vehicles for daily commute',
   },
   {
     id: 'investment',
-    emoji: '🎯',
+    icon: BarChart3,
     title: 'Smart Investment',
     description: 'Data-driven pricing insights',
   },
@@ -189,8 +190,8 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {FEATURE_CARDS.map(({ id, emoji, title, description }: typeof FEATURE_CARDS[number]) => (
-              <FeatureCard key={id} emoji={emoji} title={title} description={description} />
+            {FEATURE_CARDS.map(({ id, icon, title, description }: typeof FEATURE_CARDS[number]) => (
+              <FeatureCard key={id} icon={icon} title={title} description={description} />
             ))}
           </div>
         </div>
