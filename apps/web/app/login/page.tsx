@@ -35,8 +35,14 @@ export default function LoginPage() {
       </div>
 
       {/* Right Side - Login Form */}
-      <div className="w-full lg:w-1/2 flex items-center justify-center bg-black px-4 sm:px-6 lg:px-8 py-6 overflow-y-auto">
-        <div className="w-full max-w-md">
+      <div className="w-full lg:w-1/2 flex items-center justify-center bg-black px-4 sm:px-6 lg:px-8 py-6 overflow-y-auto relative">
+        {/* Gradient Background Effect */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute -top-40 -right-40 w-80 h-80 bg-purple-900/40 rounded-full blur-3xl" />
+          <div className="absolute -bottom-20 -right-60 w-96 h-96 bg-purple-800/30 rounded-full blur-3xl" />
+        </div>
+
+        <div className="w-full max-w-md relative z-10">
           {/* Logo */}
           <div className="mb-5">
             <Link href="/" className="flex items-center gap-2">
@@ -49,8 +55,8 @@ export default function LoginPage() {
 
           {/* Form Header */}
           <div className="mb-6">
-            <h1 className="text-2xl font-black text-white mb-1">Bem-vindo</h1>
-            <p className="text-white/60 text-sm">Acesse sua conta para continuar</p>
+            <h1 className="text-2xl font-black text-white mb-1">Welcome</h1>
+            <p className="text-white/60 text-sm">Sign in to your account to continue</p>
           </div>
 
           {/* Login Form */}
@@ -65,7 +71,7 @@ export default function LoginPage() {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="seu@email.com"
+                placeholder="your@email.com"
                 className="w-full px-3 py-2 bg-white/10 border border-white/20 rounded-lg text-sm text-white placeholder-white/40 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all"
                 required
               />
@@ -74,7 +80,7 @@ export default function LoginPage() {
             {/* Password Input */}
             <div>
               <label htmlFor="password" className="block text-xs font-bold text-white mb-1.5">
-                Senha
+                Password
               </label>
               <input
                 id="password"
@@ -91,10 +97,10 @@ export default function LoginPage() {
             <div className="flex items-center justify-between text-xs">
               <label className="flex items-center gap-1.5 cursor-pointer">
                 <input type="checkbox" className="w-4 h-4 rounded bg-white/10 border border-white/20 accent-purple-600" />
-                <span className="text-white/60">Lembrar-me</span>
+                <span className="text-white/60">Remember me</span>
               </label>
               <Link href="/forgot-password" className="text-purple-400 hover:text-purple-300 transition-colors">
-                Esqueceu?
+                Forgot password?
               </Link>
             </div>
 
@@ -104,7 +110,7 @@ export default function LoginPage() {
               disabled={isLoading}
               className="w-full px-4 py-2.5 bg-gradient-to-r from-purple-600 to-purple-500 hover:from-purple-500 hover:to-purple-400 text-white rounded-lg font-bold text-sm transition-all disabled:opacity-50 disabled:cursor-not-allowed mt-5"
             >
-              {isLoading ? 'Entrando...' : 'Entrar'}
+              {isLoading ? 'Signing in...' : 'Sign in'}
             </button>
           </form>
 
@@ -114,7 +120,7 @@ export default function LoginPage() {
               <div className="w-full border-t border-white/20" />
             </div>
             <div className="relative flex justify-center text-xs">
-              <span className="px-2 bg-black text-white/60">Ou continue com</span>
+              <span className="px-2 bg-black text-white/60">Or continue with</span>
             </div>
           </div>
 
@@ -132,9 +138,9 @@ export default function LoginPage() {
 
           {/* Sign Up Link */}
           <p className="text-center text-white/60 text-xs mt-5">
-            Não tem uma conta?{' '}
+            Don't have an account?{' '}
             <Link href="/signup" className="text-purple-400 hover:text-purple-300 font-bold transition-colors">
-              Crie uma
+              Create one
             </Link>
           </p>
         </div>
