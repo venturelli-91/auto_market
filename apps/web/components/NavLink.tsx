@@ -7,7 +7,7 @@ interface NavLinkProps {
 
 export function NavLink({ href, children }: NavLinkProps): React.ReactElement {
   return (
-    <Link href={href} className="text-white hover:text-purple-400 transition-colors font-medium text-sm">
+    <Link href={href} className="text-gray-700 dark:text-white hover:text-purple-600 dark:hover:text-purple-400 transition-colors font-medium text-sm">
       {children}
     </Link>
   );
