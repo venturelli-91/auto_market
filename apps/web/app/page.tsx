@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { Car } from 'lucide-react';
+import { motion, useReducedMotion } from 'framer-motion';
 import { NavLink } from '../components/NavLink';
 import { FeatureCard } from '../components/FeatureCard';
 import { FAQItem } from '../components/FAQItem';
@@ -9,6 +10,8 @@ import { ThemeToggle } from '../components/ThemeToggle';
 import { NAV_LINKS, BRANDS, FEATURE_CARDS, FAQ_ITEMS, FOOTER_SECTIONS } from '../lib/landing-constants';
 
 export default function Home() {
+  const shouldReduceMotion = useReducedMotion();
+
   return (
     <main className="min-h-screen bg-white dark:bg-black transition-colors duration-300">
       {/* Navigation */}
@@ -45,40 +48,65 @@ export default function Home() {
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 flex flex-col items-center justify-center min-h-screen">
           <div className="text-center space-y-8 max-w-3xl">
-            <h1 className="text-7xl lg:text-8xl font-black text-gray-900 dark:text-white leading-tight">
+            <motion.h1
+              initial={shouldReduceMotion ? false : { opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, ease: 'easeOut' }}
+              className="text-7xl lg:text-8xl font-black text-gray-900 dark:text-white leading-tight"
+            >
               Drive Your Dream
               <br />
               Car Today
-            </h1>
+            </motion.h1>
 
-            <div className="relative h-64 w-full my-8 flex items-center justify-center">
+            <motion.div
+              initial={shouldReduceMotion ? false : { opacity: 0, scale: 0.7 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.2, ease: 'easeOut' }}
+              className="relative h-64 w-full my-8 flex items-center justify-center"
+            >
               <div className="absolute w-64 h-64 bg-purple-500/20 rounded-full blur-3xl" />
               <Car size={96} className="relative text-purple-500 dark:text-purple-400" />
-            </div>
+            </motion.div>
 
             {/* Brand Logos */}
-            <div className="flex items-center justify-center gap-6 flex-wrap pt-4">
+            <motion.div
+              initial={shouldReduceMotion ? false : { opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+              className="flex items-center justify-center gap-6 flex-wrap pt-4"
+            >
               {BRANDS.map(({ icon: Icon, name }: typeof BRANDS[number]) => (
                 <div key={name} className="text-gray-500 dark:text-white/60 font-bold flex items-center gap-1.5">
                   <Icon size={18} className="text-purple-500 dark:text-purple-400" />
                   <span>{name}</span>
                 </div>
               ))}
-            </div>
+            </motion.div>
 
             {/* CTA Button */}
-            <div className="pt-4">
+            <motion.div
+              initial={shouldReduceMotion ? false : { opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.55 }}
+              className="pt-4"
+            >
               <Link
                 href="/marketplace"
                 className="inline-block px-10 py-4 bg-purple-600 hover:bg-purple-500 text-white rounded-lg font-bold text-lg transition-all transform hover:scale-105"
               >
                 Browse
               </Link>
-            </div>
+            </motion.div>
 
-            <p className="text-gray-600 dark:text-white/70 text-center max-w-xl mx-auto">
+            <motion.p
+              initial={shouldReduceMotion ? false : { opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.65 }}
+              className="text-gray-600 dark:text-white/70 text-center max-w-xl mx-auto"
+            >
               Discover vehicles with intelligent pricing insights and get fair deals backed by real market data.
-            </p>
+            </motion.p>
           </div>
         </div>
       </section>
@@ -96,8 +124,8 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {FEATURE_CARDS.map(({ id, icon, title, description }: typeof FEATURE_CARDS[number]) => (
-              <FeatureCard key={id} icon={icon} title={title} description={description} />
+            {FEATURE_CARDS.map(({ id, icon, title, description }: typeof FEATURE_CARDS[number], index) => (
+              <FeatureCard key={id} icon={icon} title={title} description={description} delay={index * 0.15} />
             ))}
           </div>
         </div>

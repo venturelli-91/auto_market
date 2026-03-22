@@ -3,6 +3,7 @@
 import { Listing, Vehicle } from '@automarket/shared-types';
 import Image from 'next/image';
 import Link from 'next/link';
+import { motion, useReducedMotion } from 'framer-motion';
 import { PriceScoreBadge } from './PriceScoreBadge';
 
 interface VehicleCardProps {
@@ -25,7 +26,15 @@ interface VehicleCardProps {
  * - Insurance quotes (add coverage info)
  */
 export function VehicleCard({ listing, vehicle }: VehicleCardProps) {
+  const shouldReduceMotion = useReducedMotion();
+
   return (
+    <motion.div
+      initial={shouldReduceMotion ? false : { opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-40px' }}
+      transition={{ duration: 0.4, ease: 'easeOut' }}
+    >
     <Link
       href={`/listings/${listing.id}`}
       className="
@@ -115,5 +124,6 @@ export function VehicleCard({ listing, vehicle }: VehicleCardProps) {
         </button>
       </div>
     </Link>
+    </motion.div>
   );
 }
