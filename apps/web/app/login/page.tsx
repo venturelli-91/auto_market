@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { Car, Mail, Lock, Apple } from 'lucide-react';
+import { Car, Mail, Lock } from 'lucide-react';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -163,7 +163,10 @@ export default function LoginPage() {
 
             {/* Apple Button */}
             <button className="px-3 py-2 border border-white/20 rounded-lg text-white hover:bg-white/5 transition-colors flex items-center justify-center gap-2 font-bold text-sm">
-              <Apple size={16} />
+              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M17.05 13.5c-.91 0-1.82.55-2.25 1.35.82.68 1.36 1.74 1.36 2.96 0 2.18-1.66 3.95-3.71 3.95-2.04 0-3.71-1.77-3.71-3.95 0-1.22.54-2.28 1.36-2.96-.43-.8-1.34-1.35-2.25-1.35-2.04 0-3.71 1.77-3.71 3.95 0 2.18 1.67 3.95 3.71 3.95 1.38 0 2.58-.75 3.22-1.84.64 1.09 1.84 1.84 3.22 1.84 2.04 0 3.71-1.77 3.71-3.95 0-2.18-1.67-3.95-3.71-3.95z"/>
+                <path d="M17.05 9.76c.91 0 1.82-.55 2.25-1.35-.82-.68-1.36-1.74-1.36-2.96 0-2.18 1.66-3.95 3.71-3.95 2.04 0 3.71 1.77 3.71 3.95 0 1.22-.54 2.28-1.36 2.96.43.8 1.34 1.35 2.25 1.35 2.04 0 3.71-1.77 3.71-3.95 0-2.18-1.67-3.95-3.71-3.95-1.38 0-2.58.75-3.22 1.84C18.27.84 17.07.09 15.69.09c-2.04 0-3.71 1.77-3.71 3.95 0 2.18 1.67 3.95 3.71 3.95z"/>
+              </svg>
               <span className="hidden sm:inline">Apple</span>
             </button>
           </div>
