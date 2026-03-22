@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 .claude/skills/ui-ux-pro-max/scripts/search.py \"automotive marketplace e-commerce dealership vehicle sales\" --design-system -p \"AutoMarket\" -f markdown --persist)",
+      "Bash(pnpm dev:*)",
+      "Bash(cp claude/CLAUDE.md .claude/CLAUDE.md)",
+      "Bash(cp claude/SKILL.md .claude/SKILL.md)",
+      "Bash(cp claude/assistant.md .claude/assistant.md)",
+      "Bash(cp claude/db.md .claude/db.md)",
+      "Bash(cp claude/feature.md .claude/feature.md)",
+      "Bash(cp -r claude/mnt .claude/mnt)",
+      "Bash(rm -rf claude/)"
+    ]
+  }
+}
