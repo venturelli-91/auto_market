@@ -22,8 +22,8 @@ export default function LoginPage() {
       <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-gray-900 to-black relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
         <img
-          src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=1000&fit=crop"
-          alt="Professional workplace"
+          src="https://images.unsplash.com/photo-1552820728-8ac41f1ce891?w=800&h=1000&fit=crop"
+          alt="Luxury car showroom"
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 flex items-center justify-center">
