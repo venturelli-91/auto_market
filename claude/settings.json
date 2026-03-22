@@ -1,0 +1,68 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pnpm *)",
+      "Bash(npm run *)",
+      "Bash(npx *)",
+      "Bash(node *)",
+      "Bash(docker-compose *)",
+      "Bash(psql *)",
+      "Bash(redis-cli *)",
+      "Bash(jest *)",
+      "Bash(mkdir *)",
+      "Bash(cp *)",
+      "Bash(mv *)",
+      "Bash(cat *)",
+      "Bash(ls *)",
+      "Bash(find *)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git status)",
+      "Bash(git log *)",
+      "Bash(git diff *)",
+      "Bash(git checkout *)",
+      "Bash(git branch *)",
+      "Write:*:*.ts",
+      "Write:*:*.tsx",
+      "Write:*:*.js",
+      "Write:*:*.json",
+      "Write:*:*.md",
+      "Write:*:*.sql",
+      "Write:*:*.env.example"
+    ],
+    "deny": [
+      "Bash(git push --force *)",
+      "Bash(rm -rf *)",
+      "Bash(curl * | bash)",
+      "Read:.env",
+      "Read:.env.local",
+      "Read:.env.production"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": ".*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node .claude/hooks/pre-tool-use.js",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write|create_file",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node .claude/hooks/post-tool-use.js",
+            "timeout": 5
+          }
+        ]
+      }
+    ]
+  }
+}

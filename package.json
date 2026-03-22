@@ -1,0 +1,25 @@
+{
+  "name": "automarket",
+  "version": "0.1.0",
+  "description": "Automotive marketplace with price intelligence engine",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "pnpm run -r --parallel dev",
+    "build": "pnpm run -r build",
+    "start": "pnpm run -r start",
+    "test": "pnpm run -r test",
+    "test:watch": "pnpm run -r test -- --watch",
+    "lint": "pnpm run -r lint",
+    "typecheck": "pnpm run -r typecheck",
+    "db:migrate": "cd apps/api && pnpm run db:migrate",
+    "db:seed": "cd apps/api && pnpm run db:seed"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.3"
+  },
+  "packageManager": "pnpm@8.15.0"
+}
