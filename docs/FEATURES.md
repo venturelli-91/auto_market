@@ -10,7 +10,7 @@ These features must be implemented before demo/interview.
 
 ### 1. Listings Catalog
 
-**Status:** ⏳ In Progress (MVP UI done, API integration pending)
+**Status:** ✅ Done
 
 **Description:**
 Display available vehicles for sale with vehicle details, images, pricing, and dealer info.
@@ -50,7 +50,7 @@ Display available vehicles for sale with vehicle details, images, pricing, and d
 
 ### 2. Price Intelligence (PRIMARY FEATURE)
 
-**Status:** ⏳ Planning
+**Status:** ✅ Done
 
 **Description:**
 Analyze market data and badge each listing as "Great Deal", "Fair Price", or "High Price" based on percentile pricing.
@@ -87,10 +87,11 @@ Analyze market data and badge each listing as "Great Deal", "Fair Price", or "Hi
 - `pricing` queue: enqueued when listing is saved, calculates price asynchronously
 
 **Pricing Strategies (Strategy Pattern):**
-1. **Exact Match** — Find vehicles with exact make/model/year (highest confidence)
-2. **Make/Model** — Find same make/model within ±2 years, ±10k miles
-3. **Regional** — Find same make/model within dealer's state
-4. **National** — Find same make/model across entire country
+1. **ExactMatchStrategy** — same make/model, year ±2, mileage ±30k (highest confidence)
+2. **MakeModelStrategy** — same make/model, year ±3 (no mileage restriction)
+3. **NationalStrategy** — same make/model, any year (broadest fallback)
+
+Each strategy implements `canApply()` (checks minimum sample size ≥ 5) and `compute()` (runs `percentile_cont` query). Engine tries them in order, uses the first that qualifies.
 
 **Key Technology:**
 - PostgreSQL `percentile_cont()` for P25/median/P75
@@ -105,7 +106,7 @@ Analyze market data and badge each listing as "Great Deal", "Fair Price", or "Hi
 
 ### 3. Faceted Search
 
-**Status:** 🔄 UI Done, Backend Integration Pending
+**Status:** ✅ Done (filters wired to real API)
 
 **Description:**
 Filter and search listings by price, year, mileage, fuel type, transmission, condition, make, model, etc.
@@ -151,9 +152,9 @@ Filter and search listings by price, year, mileage, fuel type, transmission, con
 
 ---
 
-### 4. Dealer Workspaces
+### 4. Auth & Dealer Workspaces
 
-**Status:** ⏳ Planning
+**Status:** ⏳ Auth done (JWT), dealer workspace UI pending
 
 **Description:**
 Multi-tenant dealer management with role-based access (owner, admin, agent).
@@ -183,9 +184,10 @@ Multi-tenant dealer management with role-based access (owner, admin, agent).
 - `dealer_users` table (user_id, dealer_id, email, name, role, is_active)
 - **RLS Policy:** All queries include `WHERE dealer_id = (SELECT current_dealer_id FROM app.user_context)`
 
-**Authentication (Future):**
-- OAuth or JWT-based (to be decided)
-- Session stored in Redis
+**Authentication:**
+- `POST /api/auth/login` — bcrypt password check + JWT (7d expiry)
+- Token stored in `localStorage`, sent as `Authorization: Bearer` header
+- `JWT_SECRET` and `JWT_EXPIRES_IN` configured via environment variables
 
 **Design Reference:**
 - `public/designs/dealer-dashboard.png`
@@ -200,7 +202,7 @@ Multi-tenant dealer management with role-based access (owner, admin, agent).
 **Status:** 📋 Planned
 
 **Description:**
-Claude AI-powered assistant that answers buyer questions about vehicles and makes recommendations.
+AI-powered assistant that answers buyer questions about vehicles and makes recommendations based on active listings.
 
 **Features:**
 - Chat interface with streaming responses
@@ -209,7 +211,7 @@ Claude AI-powered assistant that answers buyer questions about vehicles and make
 - Get recommendations based on budget and preferences
 
 **Technology:**
-- Claude API with streaming
+- Open-source LLM (e.g. Ollama + Llama 3) or any compatible API
 - Vector embeddings for similarity search
 - Redis for conversation history
 
@@ -347,4 +349,3 @@ When demoing, focus on:
 ---
 
 *Last updated: 2026-03-22*
-*Update this document as features are completed or scope changes.*
