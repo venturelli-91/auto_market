@@ -113,9 +113,12 @@ export default function Home() {
                 {label}
               </NavLink>
             ))}
-            <button className="px-6 py-2 bg-purple-600 hover:bg-purple-500 text-white rounded-lg font-bold transition-all">
+            <Link
+              href="/login"
+              className="px-6 py-2 bg-purple-600 hover:bg-purple-500 text-white rounded-lg font-bold transition-all inline-block"
+            >
               Sign In
-            </button>
+            </Link>
           </div>
         </div>
       </nav>
