@@ -7,6 +7,7 @@ import { pool } from './shared/db';
 import { redis } from './shared/redis';
 import { pricingQueue } from './shared/queue';
 import { createListingsRouter } from './features/listings/listings.routes';
+import { createAuthRouter } from './features/auth/auth.routes';
 import { startPricingWorker } from './features/pricing/pricing.worker';
 
 const app = express();
@@ -23,6 +24,7 @@ app.get('/health', (_req, res) => {
 });
 
 // Routes
+app.use('/api/auth', createAuthRouter(pool));
 app.use('/api/listings', createListingsRouter(pool));
 
 // Error handling

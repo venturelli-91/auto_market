@@ -10,12 +10,36 @@ export default function LoginPage() {
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
+  const [error, setError] = useState<string | null>(null);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    // Login logic will be implemented here
-    console.log('Login attempt:', { email, password });
-    setIsLoading(false);
+    setError(null);
+
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001'}/api/auth/login`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password }),
+        }
+      );
+
+      if (!res.ok) {
+        setError('Invalid email or password.');
+        return;
+      }
+
+      const { token } = await res.json() as { token: string };
+      localStorage.setItem('auth_token', token);
+      window.location.href = '/marketplace';
+    } catch {
+      setError('Unable to connect. Please try again.');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -127,6 +151,11 @@ export default function LoginPage() {
                 Forgot password?
               </Link>
             </div>
+
+            {/* Error message */}
+            {error && (
+              <p className="text-red-500 dark:text-red-400 text-xs">{error}</p>
+            )}
 
             {/* Login Button */}
             <button
