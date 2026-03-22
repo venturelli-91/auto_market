@@ -9,7 +9,11 @@
       "Bash(cp claude/db.md .claude/db.md)",
       "Bash(cp claude/feature.md .claude/feature.md)",
       "Bash(cp -r claude/mnt .claude/mnt)",
-      "Bash(rm -rf claude/)"
+      "Bash(rm -rf claude/)",
+      "Bash(pnpm typecheck:*)",
+      "Bash(pnpm add:*)",
+      "Bash(pnpm build:*)",
+      "Read(//d/Desenvolupamen web/projects_venturelli/auto_market/apps/web/app/api/listings/**)"
     ]
   }
 }

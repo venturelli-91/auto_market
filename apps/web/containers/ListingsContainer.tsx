@@ -1,8 +1,9 @@
 'use client';
 
-import { Suspense } from 'react';
-import { useListings } from '@/hooks/useListings';
-import { VehicleCard } from '@/components/VehicleCard';
+import { Suspense, useMemo } from 'react';
+import { useSearchParams } from 'next/navigation';
+import { useListings, ListingsFilters } from '../hooks/useListings';
+import { VehicleCard } from '../components/VehicleCard';
 import { Listing } from '@automarket/shared-types';
 
 /**
@@ -10,16 +11,34 @@ import { Listing } from '@automarket/shared-types';
  *
  * Architecture: Container/Presentational Pattern
  * - This container handles TanStack Query data fetching
+ * - Reads filters from URL search params
  * - Passes data to presentational VehicleCard components
  * - Never renders UI directly (except loading/error states)
  *
  * Responsibilities:
- * - Fetch listings via useListings hook
+ * - Parse filters from URL search params
+ * - Fetch listings via useListings hook with filters
  * - Handle loading, error, and empty states
  * - Map listings to VehicleCard components
  */
 export function ListingsContainer() {
-  const { data, isLoading, error } = useListings();
+  const searchParams = useSearchParams();
+
+  // Build filters object from URL search params
+  const filters = useMemo<ListingsFilters>(() => {
+    return {
+      make: searchParams.get('make') || undefined,
+      model: searchParams.get('model') || undefined,
+      minPrice: searchParams.get('minPrice') ? parseInt(searchParams.get('minPrice')!) : undefined,
+      maxPrice: searchParams.get('maxPrice') ? parseInt(searchParams.get('maxPrice')!) : undefined,
+      minYear: searchParams.get('minYear') ? parseInt(searchParams.get('minYear')!) : undefined,
+      maxYear: searchParams.get('maxYear') ? parseInt(searchParams.get('maxYear')!) : undefined,
+      fuelType: searchParams.get('fuelType') || undefined,
+      transmission: searchParams.get('transmission') || undefined,
+    };
+  }, [searchParams]);
+
+  const { data, isLoading, error } = useListings(filters);
 
   if (isLoading) {
     return (

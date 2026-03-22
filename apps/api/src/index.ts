@@ -16,12 +16,12 @@ app.use(cors({ origin: process.env.FRONTEND_URL || 'http://localhost:3000' }));
 app.use(express.json());
 
 // Health check
-app.get('/health', (req, res) => {
+app.get('/health', (_req, res) => {
   res.json({ status: 'ok' });
 });
 
 // Routes placeholder
-app.get('/api/listings', (req, res) => {
+app.get('/api/listings', (_req, res) => {
   res.json({ message: 'Listings endpoint — coming soon' });
 });
 

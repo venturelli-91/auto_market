@@ -1,5 +1,5 @@
 import { Vehicle } from './vehicle.types';
-import { PriceScore, PriceBadge } from './listing.types';
+import { PriceBadge } from './listing.types';
 
 export enum PricingStrategy {
   REGIONAL = 'regional',

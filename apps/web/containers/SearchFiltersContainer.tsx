@@ -1,6 +1,7 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 /**
  * SearchFiltersContainer - Sidebar filter interface
@@ -14,15 +15,33 @@ import { useState } from 'react';
  * - Instant availability toggle
  * - Budget range visualization
  *
- * Architecture: Client component (uses useState for filter state)
- * Typically would connect to ListingsContainer via state management or URL params
+ * Architecture: Client component synced with URL search params
+ * - Reads initial values from URL
+ * - Updates URL when filters change
+ * - ListingsContainer watches URL changes and filters results
  */
 export function SearchFiltersContainer() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  // Initialize from URL params
   const [selectedBrand, setSelectedBrand] = useState('');
   const [selectedModel, setSelectedModel] = useState('');
   const [priceRange, setPriceRange] = useState([20000, 80000]);
   const [duration, setDuration] = useState('any');
   const [instantAvailable, setInstantAvailable] = useState(false);
+
+  // Hydrate from URL params on mount
+  useEffect(() => {
+    const make = searchParams.get('make') || '';
+    const model = searchParams.get('model') || '';
+    const minPrice = searchParams.get('minPrice') ? parseInt(searchParams.get('minPrice')!) : 20000;
+    const maxPrice = searchParams.get('maxPrice') ? parseInt(searchParams.get('maxPrice')!) : 80000;
+
+    setSelectedBrand(make);
+    setSelectedModel(model);
+    setPriceRange([minPrice, maxPrice]);
+  }, []);
 
   const brands = ['Toyota', 'Honda', 'Ford', 'Tesla', 'BMW', 'Mazda', 'Chevrolet', 'Nissan'];
   const models: Record<string, string[]> = {
@@ -40,12 +59,30 @@ export function SearchFiltersContainer() {
     return selectedBrand && models[selectedBrand] ? models[selectedBrand] : [];
   };
 
+  // Update URL with current filters
+  const updateUrl = (
+    make?: string,
+    model?: string,
+    minPrice?: number,
+    maxPrice?: number
+  ) => {
+    const params = new URLSearchParams();
+    if (make) params.append('make', make);
+    if (model) params.append('model', model);
+    if (minPrice !== undefined && minPrice > 10000) params.append('minPrice', minPrice.toString());
+    if (maxPrice !== undefined && maxPrice < 100000) params.append('maxPrice', maxPrice.toString());
+
+    const queryString = params.toString();
+    router.push(queryString ? `?${queryString}` : '/');
+  };
+
   const handleResetFilters = () => {
     setSelectedBrand('');
     setSelectedModel('');
     setPriceRange([20000, 80000]);
     setDuration('any');
     setInstantAvailable(false);
+    router.push('/');
   };
 
   return (
@@ -69,8 +106,10 @@ export function SearchFiltersContainer() {
         <select
           value={selectedBrand}
           onChange={(e) => {
-            setSelectedBrand(e.target.value);
+            const brand = e.target.value;
+            setSelectedBrand(brand);
             setSelectedModel('');
+            updateUrl(brand, '', priceRange[0], priceRange[1]);
           }}
           className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
         >
@@ -91,7 +130,11 @@ export function SearchFiltersContainer() {
           </label>
           <select
             value={selectedModel}
-            onChange={(e) => setSelectedModel(e.target.value)}
+            onChange={(e) => {
+              const model = e.target.value;
+              setSelectedModel(model);
+              updateUrl(selectedBrand, model, priceRange[0], priceRange[1]);
+            }}
             className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           >
             <option value="">All Models</option>
@@ -119,6 +162,7 @@ export function SearchFiltersContainer() {
             onChange={(e) => {
               const newMin = Math.min(Number(e.target.value), priceRange[1]);
               setPriceRange([newMin, priceRange[1]]);
+              updateUrl(selectedBrand, selectedModel, newMin, priceRange[1]);
             }}
             className="w-full h-2 bg-gray-300 rounded-lg appearance-none cursor-pointer accent-blue-600"
           />
@@ -131,6 +175,7 @@ export function SearchFiltersContainer() {
             onChange={(e) => {
               const newMax = Math.max(Number(e.target.value), priceRange[0]);
               setPriceRange([priceRange[0], newMax]);
+              updateUrl(selectedBrand, selectedModel, priceRange[0], newMax);
             }}
             className="w-full h-2 bg-gray-300 rounded-lg appearance-none cursor-pointer accent-blue-600"
           />

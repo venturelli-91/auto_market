@@ -1,6 +1,6 @@
 'use client';
 
-import { Listing, Vehicle, PriceScore } from '@automarket/shared-types';
+import { Listing, Vehicle } from '@automarket/shared-types';
 import Image from 'next/image';
 import Link from 'next/link';
 import { PriceScoreBadge } from './PriceScoreBadge';

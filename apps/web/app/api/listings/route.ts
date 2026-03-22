@@ -5,7 +5,7 @@
  * For now, we return mock data for development
  */
 
-import { Listing, Vehicle, VehicleCondition, FuelType, Transmission, PriceBadge } from '@automarket/shared-types';
+import { Listing, Vehicle, VehicleCondition, FuelType, Transmission, PriceBadge, ListingStatus } from '@automarket/shared-types';
 
 // Mock listings data
 const MOCK_VEHICLES: Vehicle[] = [
@@ -179,14 +179,14 @@ const MOCK_LISTINGS: Listing[] = MOCK_VEHICLES.map((vehicle, index) => ({
   vehicle,
   price: [22999, 19999, 45999, 52999, 28999, 32999][index],
   priceScore: {
-    badge: [PriceBadge.GREAT_DEAL, PriceBadge.FAIR_PRICE, PriceBadge.HIGH_PRICE, PriceBadge.GREAT_DEAL, PriceBadge.FAIR_PRICE, PriceBadge.GOOD][index] as any,
+    badge: [PriceBadge.GREAT_DEAL, PriceBadge.FAIR_PRICE, PriceBadge.HIGH_PRICE, PriceBadge.GREAT_DEAL, PriceBadge.FAIR_PRICE, PriceBadge.FAIR_PRICE][index],
     confidence: 0.85 + Math.random() * 0.14,
     marketMedian: [25000, 22000, 48000, 50000, 32000, 35000][index],
     p25: [20000, 18000, 42000, 45000, 25000, 28000][index],
     p75: [30000, 26000, 52000, 58000, 38000, 42000][index],
     sampleSize: 1200 + Math.floor(Math.random() * 800),
   },
-  status: 'published',
+  status: ListingStatus.PUBLISHED,
   publishedAt: new Date(),
   viewCount: Math.floor(Math.random() * 200),
   favoriteCount: Math.floor(Math.random() * 50),
@@ -194,12 +194,51 @@ const MOCK_LISTINGS: Listing[] = MOCK_VEHICLES.map((vehicle, index) => ({
   updatedAt: MOCK_VEHICLES[index].updatedAt,
 }));
 
-export async function GET() {
+export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url);
+
+  // Parse filter parameters
+  const make = searchParams.get('make')?.toLowerCase();
+  const model = searchParams.get('model')?.toLowerCase();
+  const minPrice = searchParams.get('minPrice') ? parseInt(searchParams.get('minPrice')!) : undefined;
+  const maxPrice = searchParams.get('maxPrice') ? parseInt(searchParams.get('maxPrice')!) : undefined;
+  const minYear = searchParams.get('minYear') ? parseInt(searchParams.get('minYear')!) : undefined;
+  const maxYear = searchParams.get('maxYear') ? parseInt(searchParams.get('maxYear')!) : undefined;
+  const fuelType = searchParams.get('fuelType')?.toUpperCase();
+  const transmission = searchParams.get('transmission')?.toUpperCase();
+
+  // Filter listings
+  const filtered = MOCK_LISTINGS.filter(listing => {
+    const vehicle = listing.vehicle;
+
+    // Make filter
+    if (make && vehicle.make.toLowerCase() !== make) return false;
+
+    // Model filter
+    if (model && vehicle.model.toLowerCase() !== model) return false;
+
+    // Price range filter
+    if (minPrice !== undefined && listing.price < minPrice) return false;
+    if (maxPrice !== undefined && listing.price > maxPrice) return false;
+
+    // Year range filter
+    if (minYear !== undefined && vehicle.year < minYear) return false;
+    if (maxYear !== undefined && vehicle.year > maxYear) return false;
+
+    // Fuel type filter
+    if (fuelType && vehicle.fuelType !== fuelType) return false;
+
+    // Transmission filter
+    if (transmission && vehicle.transmission !== transmission) return false;
+
+    return true;
+  });
+
   return Response.json({
-    items: MOCK_LISTINGS,
+    items: filtered,
     nextCursor: null,
     hasNextPage: false,
     hasPrevPage: false,
-    totalCount: MOCK_LISTINGS.length,
+    totalCount: filtered.length,
   });
 }

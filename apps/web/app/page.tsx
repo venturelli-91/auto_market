@@ -1,7 +1,8 @@
-'use client';
-
+import { Suspense } from 'react';
 import { ListingsContainer } from '../containers/ListingsContainer';
 import { SearchFiltersContainer } from '../containers/SearchFiltersContainer';
+
+export const dynamic = 'force-dynamic';
 
 export default function Home() {
   return (
@@ -44,7 +45,9 @@ export default function Home() {
       <div className="flex gap-6 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Sidebar Filters - Hidden on mobile */}
         <aside className="hidden lg:block w-64 flex-shrink-0">
-          <SearchFiltersContainer />
+          <Suspense fallback={<div className="bg-gray-100 rounded-lg p-6 h-96" />}>
+            <SearchFiltersContainer />
+          </Suspense>
         </aside>
 
         {/* Listings Grid */}
@@ -53,7 +56,9 @@ export default function Home() {
             <h2 className="text-2xl font-bold text-gray-900">Available Vehicles</h2>
             <p className="text-gray-600 text-sm mt-1">Browse our latest inventory</p>
           </div>
-          <ListingsContainer />
+          <Suspense fallback={<div className="text-center py-8">Loading vehicles...</div>}>
+            <ListingsContainer />
+          </Suspense>
         </section>
       </div>
     </main>
