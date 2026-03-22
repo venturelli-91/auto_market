@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { Car, Mail, Lock } from 'lucide-react';
+import { ThemeToggle } from '../../components/ThemeToggle';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -18,7 +19,12 @@ export default function LoginPage() {
   };
 
   return (
-    <main className="h-screen flex overflow-hidden">
+    <main className="h-screen flex overflow-hidden relative">
+      {/* Theme Toggle */}
+      <div className="absolute top-4 right-4 z-50">
+        <ThemeToggle />
+      </div>
+
       {/* Left Side - Car Background */}
       <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden">
         {/* Background Gradient */}

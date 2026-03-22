@@ -5,6 +5,7 @@ import { Car, Gem, BarChart3, Zap, Gauge, Crown, Rocket } from 'lucide-react';
 import { NavLink } from '../components/NavLink';
 import { FeatureCard } from '../components/FeatureCard';
 import { FAQItem } from '../components/FAQItem';
+import { ThemeToggle } from '../components/ThemeToggle';
 
 // Navigation links
 const NAV_LINKS = [
@@ -108,12 +109,13 @@ export default function Home() {
             <div className="w-6 h-6 bg-white rounded-full" aria-hidden="true" />
             <div className="text-xl font-black text-white">DriveMatch</div>
           </div>
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-4">
             {NAV_LINKS.map(({ label, href }: typeof NAV_LINKS[number]) => (
               <NavLink key={href} href={href}>
                 {label}
               </NavLink>
             ))}
+            <ThemeToggle />
             <Link
               href="/login"
               className="px-6 py-2 bg-purple-600 hover:bg-purple-500 text-white rounded-lg font-bold transition-all inline-block"
