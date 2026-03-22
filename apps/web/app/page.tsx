@@ -1,66 +1,199 @@
-import { Suspense } from 'react';
-import { ListingsContainer } from '../containers/ListingsContainer';
-import { SearchFiltersContainer } from '../containers/SearchFiltersContainer';
-
-export const dynamic = 'force-dynamic';
+import Link from 'next/link';
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-white">
-      {/* Header */}
-      <header className="bg-white border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-3xl font-bold text-gray-900">DriveMatch</h1>
-              <p className="text-gray-600 text-sm mt-1">Find Your Perfect Vehicle</p>
+    <main className="min-h-screen">
+      {/* Navigation */}
+      <nav className="fixed top-0 w-full z-50 bg-gradient-to-r from-purple-900 via-purple-800 to-purple-900 backdrop-blur-md border-b border-purple-700/50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <div className="text-2xl font-black bg-gradient-to-r from-yellow-300 to-yellow-500 bg-clip-text text-transparent">
+              DRIVE
             </div>
-            <div className="flex gap-4">
-              <button className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
-                <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.5 1.5H3.75A2.25 2.25 0 001.5 3.75v16.5A2.25 2.25 0 003.75 22.5h16.5a2.25 2.25 0 002.25-2.25V13.5" />
-                </svg>
-              </button>
-              <button className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
-                <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
-                </svg>
-              </button>
-              <button className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
-                <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
-                </svg>
-              </button>
-              <button className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
-                <svg className="w-6 h-6 text-gray-600" fill="currentColor" viewBox="0 0 24 24">
-                  <circle cx="12" cy="12" r="10" />
-                </svg>
-              </button>
+            <div className="text-2xl font-black text-white">MATCH</div>
+          </div>
+          <div className="flex items-center gap-6">
+            <Link href="/marketplace" className="text-white hover:text-yellow-300 transition-colors font-medium">
+              Marketplace
+            </Link>
+            <button className="px-6 py-2 bg-gradient-to-r from-yellow-400 to-yellow-500 text-purple-900 rounded-lg font-bold hover:shadow-lg hover:shadow-yellow-500/50 transition-all">
+              Sign In
+            </button>
+          </div>
+        </div>
+      </nav>
+
+      {/* Hero Section */}
+      <section className="relative min-h-screen pt-16 bg-gradient-to-br from-purple-950 via-purple-900 to-blue-900 overflow-hidden">
+        {/* Animated background elements */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute -top-40 -right-40 w-80 h-80 bg-yellow-400/10 rounded-full blur-3xl animate-pulse" />
+          <div className="absolute top-1/3 -left-20 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse" />
+          <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl" />
+        </div>
+
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* Text Content */}
+            <div className="space-y-8">
+              <div className="space-y-4">
+                <h1 className="text-6xl lg:text-7xl font-black text-white leading-tight">
+                  Find Your
+                  <br />
+                  <span className="bg-gradient-to-r from-yellow-300 via-yellow-400 to-yellow-500 bg-clip-text text-transparent">
+                    Perfect Ride
+                  </span>
+                </h1>
+                <p className="text-xl text-purple-200 max-w-lg">
+                  Discover vehicles with intelligent pricing insights. Get fair deals backed by real market data.
+                </p>
+              </div>
+
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Link
+                  href="/marketplace"
+                  className="px-8 py-4 bg-gradient-to-r from-yellow-400 to-yellow-500 text-purple-900 rounded-lg font-bold text-lg hover:shadow-2xl hover:shadow-yellow-500/50 transition-all transform hover:scale-105"
+                >
+                  Browse Vehicles
+                </Link>
+                <button className="px-8 py-4 border-2 border-yellow-400 text-yellow-300 rounded-lg font-bold text-lg hover:bg-yellow-400/10 transition-all">
+                  Learn More
+                </button>
+              </div>
+
+              {/* Stats */}
+              <div className="grid grid-cols-3 gap-6 pt-8">
+                <div>
+                  <div className="text-3xl font-black text-yellow-400">500K+</div>
+                  <p className="text-purple-300 text-sm">Vehicles Listed</p>
+                </div>
+                <div>
+                  <div className="text-3xl font-black text-yellow-400">50K+</div>
+                  <p className="text-purple-300 text-sm">Happy Buyers</p>
+                </div>
+                <div>
+                  <div className="text-3xl font-black text-yellow-400">99%</div>
+                  <p className="text-purple-300 text-sm">Fair Pricing</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Hero Image Showcase */}
+            <div className="relative h-full min-h-96">
+              <div className="absolute inset-0 bg-gradient-to-br from-yellow-400/20 to-purple-600/20 rounded-2xl backdrop-blur-sm border border-yellow-400/30 overflow-hidden">
+                <div className="w-full h-full bg-gradient-to-br from-purple-800 to-purple-900 flex items-center justify-center">
+                  <div className="text-center">
+                    <div className="text-6xl mb-4">🚗</div>
+                    <p className="text-yellow-300 font-bold text-lg">Vehicle showcase</p>
+                    <p className="text-purple-300 text-sm mt-2">Coming Soon</p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </header>
+      </section>
 
-      {/* Main Content - Sidebar + Grid */}
-      <div className="flex gap-6 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Sidebar Filters - Hidden on mobile */}
-        <aside className="hidden lg:block w-64 flex-shrink-0">
-          <Suspense fallback={<div className="bg-gray-100 rounded-lg p-6 h-96" />}>
-            <SearchFiltersContainer />
-          </Suspense>
-        </aside>
-
-        {/* Listings Grid */}
-        <section className="flex-1">
-          <div className="mb-6">
-            <h2 className="text-2xl font-bold text-gray-900">Available Vehicles</h2>
-            <p className="text-gray-600 text-sm mt-1">Browse our latest inventory</p>
+      {/* Features Section */}
+      <section className="bg-gradient-to-br from-purple-900 via-blue-900 to-purple-900 py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl lg:text-5xl font-black text-white mb-4">
+              Why Choose
+              <br />
+              <span className="text-yellow-400">DriveMatch</span>
+            </h2>
+            <p className="text-xl text-purple-200 max-w-2xl mx-auto">
+              We revolutionize how you buy and sell vehicles with data-driven insights
+            </p>
           </div>
-          <Suspense fallback={<div className="text-center py-8">Loading vehicles...</div>}>
-            <ListingsContainer />
-          </Suspense>
-        </section>
-      </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Feature 1 */}
+            <div className="bg-gradient-to-br from-purple-800/50 to-purple-900/50 border border-yellow-400/30 rounded-xl p-8 hover:border-yellow-400/60 transition-all hover:shadow-xl hover:shadow-yellow-400/20">
+              <div className="text-4xl mb-4">💡</div>
+              <h3 className="text-xl font-bold text-yellow-300 mb-3">Price Intelligence</h3>
+              <p className="text-purple-200">
+                Our AI-powered system analyzes thousands of vehicles to give you fair pricing insights in real-time.
+              </p>
+            </div>
+
+            {/* Feature 2 */}
+            <div className="bg-gradient-to-br from-purple-800/50 to-purple-900/50 border border-yellow-400/30 rounded-xl p-8 hover:border-yellow-400/60 transition-all hover:shadow-xl hover:shadow-yellow-400/20">
+              <div className="text-4xl mb-4">🔍</div>
+              <h3 className="text-xl font-bold text-yellow-300 mb-3">Smart Search</h3>
+              <p className="text-purple-200">
+                Filter by price, features, condition, and more. Find exactly what you&apos;re looking for in seconds.
+              </p>
+            </div>
+
+            {/* Feature 3 */}
+            <div className="bg-gradient-to-br from-purple-800/50 to-purple-900/50 border border-yellow-400/30 rounded-xl p-8 hover:border-yellow-400/60 transition-all hover:shadow-xl hover:shadow-yellow-400/20">
+              <div className="text-4xl mb-4">✅</div>
+              <h3 className="text-xl font-bold text-yellow-300 mb-3">Trust & Safety</h3>
+              <p className="text-purple-200">
+                Verified listings, transparent pricing, and secure transactions. Buy with confidence.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="bg-gradient-to-r from-yellow-400 to-yellow-500 py-16">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-4xl font-black text-purple-900 mb-4">Ready to Find Your Perfect Vehicle?</h2>
+          <p className="text-lg text-purple-800 mb-8">Start browsing our inventory of verified listings with intelligent pricing.</p>
+          <Link
+            href="/marketplace"
+            className="inline-block px-10 py-4 bg-purple-900 text-yellow-300 rounded-lg font-bold text-lg hover:bg-purple-800 transition-all transform hover:scale-105"
+          >
+            Browse Marketplace
+          </Link>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-gradient-to-r from-purple-950 to-blue-950 text-purple-200 py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+            <div>
+              <div className="text-xl font-black mb-4">
+                <span className="bg-gradient-to-r from-yellow-300 to-yellow-500 bg-clip-text text-transparent">DRIVE</span>
+                <span className="text-white">MATCH</span>
+              </div>
+              <p className="text-sm">Intelligent vehicle marketplace</p>
+            </div>
+            <div>
+              <h4 className="font-bold text-white mb-4">Platform</h4>
+              <ul className="space-y-2 text-sm">
+                <li><a href="#" className="hover:text-yellow-300 transition-colors">Browse</a></li>
+                <li><a href="#" className="hover:text-yellow-300 transition-colors">Sell</a></li>
+                <li><a href="#" className="hover:text-yellow-300 transition-colors">About</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-bold text-white mb-4">Company</h4>
+              <ul className="space-y-2 text-sm">
+                <li><a href="#" className="hover:text-yellow-300 transition-colors">Blog</a></li>
+                <li><a href="#" className="hover:text-yellow-300 transition-colors">Careers</a></li>
+                <li><a href="#" className="hover:text-yellow-300 transition-colors">Contact</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-bold text-white mb-4">Legal</h4>
+              <ul className="space-y-2 text-sm">
+                <li><a href="#" className="hover:text-yellow-300 transition-colors">Privacy</a></li>
+                <li><a href="#" className="hover:text-yellow-300 transition-colors">Terms</a></li>
+                <li><a href="#" className="hover:text-yellow-300 transition-colors">Security</a></li>
+              </ul>
+            </div>
+          </div>
+          <div className="border-t border-purple-700/50 pt-8 text-center text-sm">
+            <p>&copy; 2026 DriveMatch. All rights reserved.</p>
+          </div>
+        </div>
+      </footer>
     </main>
   );
 }
