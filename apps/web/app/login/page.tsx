@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { Car, Mail, Lock, Globe, Apple } from 'lucide-react';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -30,20 +31,9 @@ export default function LoginPage() {
           <div className="absolute top-1/3 right-1/4 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
         </div>
 
-        {/* Car Silhouette Lines */}
-        <div className="absolute inset-0">
-          <svg className="w-full h-full opacity-20" viewBox="0 0 400 600" preserveAspectRatio="xMidYMid slice">
-            {/* Car outline */}
-            <path d="M 80 350 L 120 250 L 280 250 L 320 350 Z" stroke="url(#carGradient)" strokeWidth="2" fill="none" vectorEffect="non-scaling-stroke" />
-            <ellipse cx="140" cy="360" rx="35" ry="40" stroke="url(#carGradient)" strokeWidth="2" fill="none" vectorEffect="non-scaling-stroke" />
-            <ellipse cx="260" cy="360" rx="35" ry="40" stroke="url(#carGradient)" strokeWidth="2" fill="none" vectorEffect="non-scaling-stroke" />
-            <defs>
-              <linearGradient id="carGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#a855f7" />
-                <stop offset="100%" stopColor="#7c3aed" />
-              </linearGradient>
-            </defs>
-          </svg>
+        {/* Car Icon */}
+        <div className="absolute inset-0 flex items-center justify-center opacity-20">
+          <Car size={200} className="text-purple-500 stroke-[0.5]" />
         </div>
 
         {/* Grid Pattern */}
@@ -55,7 +45,7 @@ export default function LoginPage() {
         {/* Content Overlay */}
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="text-center text-white px-8 z-10">
-            <div className="text-6xl mb-4">🚗</div>
+            <Car size={64} className="mx-auto mb-4 text-purple-400" />
             <h2 className="text-4xl font-black mb-4">DriveMatch</h2>
             <p className="text-xl text-white/80">Find Your Perfect Car</p>
             <p className="text-sm text-white/60 mt-2">Powered by Intelligent Pricing</p>
@@ -95,7 +85,8 @@ export default function LoginPage() {
           <form onSubmit={handleSubmit} className="space-y-4">
             {/* Email Input */}
             <div>
-              <label htmlFor="email" className="block text-xs font-bold text-white mb-1.5">
+              <label htmlFor="email" className="text-xs font-bold text-white mb-1.5 flex items-center gap-1.5">
+                <Mail size={14} />
                 Email
               </label>
               <input
@@ -111,7 +102,8 @@ export default function LoginPage() {
 
             {/* Password Input */}
             <div>
-              <label htmlFor="password" className="block text-xs font-bold text-white mb-1.5">
+              <label htmlFor="password" className="text-xs font-bold text-white mb-1.5 flex items-center gap-1.5">
+                <Lock size={14} />
                 Password
               </label>
               <input
@@ -159,11 +151,11 @@ export default function LoginPage() {
           {/* Social Login */}
           <div className="grid grid-cols-2 gap-3">
             <button className="px-3 py-2 border border-white/20 rounded-lg text-white hover:bg-white/5 transition-colors flex items-center justify-center gap-2 font-bold text-sm">
-              <span>🔵</span>
+              <Globe size={16} />
               <span className="hidden sm:inline">Google</span>
             </button>
             <button className="px-3 py-2 border border-white/20 rounded-lg text-white hover:bg-white/5 transition-colors flex items-center justify-center gap-2 font-bold text-sm">
-              <span>🍎</span>
+              <Apple size={16} />
               <span className="hidden sm:inline">Apple</span>
             </button>
           </div>
