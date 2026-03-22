@@ -4,19 +4,26 @@ export default function Home() {
   return (
     <main className="min-h-screen">
       {/* Navigation */}
-      <nav className="fixed top-0 w-full z-50 bg-gradient-to-r from-purple-900 via-purple-800 to-purple-900 backdrop-blur-md border-b border-purple-700/50">
+      <nav className="fixed top-0 w-full z-50 bg-black/80 backdrop-blur-md border-b border-purple-600/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <div className="text-2xl font-black bg-gradient-to-r from-yellow-300 to-yellow-500 bg-clip-text text-transparent">
-              DRIVE
-            </div>
-            <div className="text-2xl font-black text-white">MATCH</div>
+            <div className="w-6 h-6 bg-white rounded-full"></div>
+            <div className="text-xl font-black text-white">DriveMatch</div>
           </div>
           <div className="flex items-center gap-6">
-            <Link href="/marketplace" className="text-white hover:text-yellow-300 transition-colors font-medium">
+            <Link href="/marketplace" className="text-white hover:text-purple-400 transition-colors font-medium text-sm">
               Marketplace
             </Link>
-            <button className="px-6 py-2 bg-gradient-to-r from-yellow-400 to-yellow-500 text-purple-900 rounded-lg font-bold hover:shadow-lg hover:shadow-yellow-500/50 transition-all">
+            <Link href="/features" className="text-white hover:text-purple-400 transition-colors font-medium text-sm">
+              Features
+            </Link>
+            <Link href="/about" className="text-white hover:text-purple-400 transition-colors font-medium text-sm">
+              About
+            </Link>
+            <Link href="/contact" className="text-white hover:text-purple-400 transition-colors font-medium text-sm">
+              Contact
+            </Link>
+            <button className="px-6 py-2 bg-purple-600 hover:bg-purple-500 text-white rounded-lg font-bold transition-all">
               Sign In
             </button>
           </div>
@@ -24,172 +31,174 @@ export default function Home() {
       </nav>
 
       {/* Hero Section */}
-      <section className="relative min-h-screen pt-16 bg-gradient-to-br from-purple-950 via-purple-900 to-blue-900 overflow-hidden">
-        {/* Animated background elements */}
+      <section className="relative min-h-screen pt-16 bg-black overflow-hidden">
+        {/* Animated background elements - purple/blue glow */}
         <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute -top-40 -right-40 w-80 h-80 bg-yellow-400/10 rounded-full blur-3xl animate-pulse" />
-          <div className="absolute top-1/3 -left-20 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse" />
-          <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl animate-pulse" />
+          <div className="absolute -bottom-20 -left-40 w-96 h-96 bg-purple-600/15 rounded-full blur-3xl" />
+          <div className="absolute -top-40 -right-40 w-80 h-80 bg-blue-500/15 rounded-full blur-3xl" />
         </div>
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            {/* Text Content */}
-            <div className="space-y-8">
-              <div className="space-y-4">
-                <h1 className="text-6xl lg:text-7xl font-black text-white leading-tight">
-                  Find Your
-                  <br />
-                  <span className="bg-gradient-to-r from-yellow-300 via-yellow-400 to-yellow-500 bg-clip-text text-transparent">
-                    Perfect Ride
-                  </span>
-                </h1>
-                <p className="text-xl text-purple-200 max-w-lg">
-                  Discover vehicles with intelligent pricing insights. Get fair deals backed by real market data.
-                </p>
-              </div>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 flex flex-col items-center justify-center min-h-screen">
+          <div className="text-center space-y-8 max-w-3xl">
+            {/* Main Heading */}
+            <h1 className="text-7xl lg:text-8xl font-black text-white leading-tight">
+              Drive Your Dream
+              <br />
+              Car Today
+            </h1>
 
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Link
-                  href="/marketplace"
-                  className="px-8 py-4 bg-gradient-to-r from-yellow-400 to-yellow-500 text-purple-900 rounded-lg font-bold text-lg hover:shadow-2xl hover:shadow-yellow-500/50 transition-all transform hover:scale-105"
-                >
-                  Browse Vehicles
-                </Link>
-                <button className="px-8 py-4 border-2 border-yellow-400 text-yellow-300 rounded-lg font-bold text-lg hover:bg-yellow-400/10 transition-all">
-                  Learn More
-                </button>
+            {/* Hero Car Showcase - centered */}
+            <div className="relative h-64 w-full flex items-center justify-center my-8">
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="w-64 h-64 bg-gradient-radial from-purple-500/30 to-transparent rounded-full blur-3xl" />
               </div>
-
-              {/* Stats */}
-              <div className="grid grid-cols-3 gap-6 pt-8">
-                <div>
-                  <div className="text-3xl font-black text-yellow-400">500K+</div>
-                  <p className="text-purple-300 text-sm">Vehicles Listed</p>
-                </div>
-                <div>
-                  <div className="text-3xl font-black text-yellow-400">50K+</div>
-                  <p className="text-purple-300 text-sm">Happy Buyers</p>
-                </div>
-                <div>
-                  <div className="text-3xl font-black text-yellow-400">99%</div>
-                  <p className="text-purple-300 text-sm">Fair Pricing</p>
-                </div>
-              </div>
+              <div className="relative text-6xl">🚗</div>
             </div>
 
-            {/* Hero Image Showcase */}
-            <div className="relative h-full min-h-96">
-              <div className="absolute inset-0 bg-gradient-to-br from-yellow-400/20 to-purple-600/20 rounded-2xl backdrop-blur-sm border border-yellow-400/30 overflow-hidden">
-                <div className="w-full h-full bg-gradient-to-br from-purple-800 to-purple-900 flex items-center justify-center">
-                  <div className="text-center">
-                    <div className="text-6xl mb-4">🚗</div>
-                    <p className="text-yellow-300 font-bold text-lg">Vehicle showcase</p>
-                    <p className="text-purple-300 text-sm mt-2">Coming Soon</p>
-                  </div>
-                </div>
+            {/* Brand Logos */}
+            <div className="flex items-center justify-center gap-6 flex-wrap pt-4">
+              <div className="text-white/60 font-bold">🏎️ TOYOTA</div>
+              <div className="text-white/60 font-bold">⚫ BMW</div>
+              <div className="text-white/60 font-bold">⚡ TESLA</div>
+              <div className="text-white/60 font-bold">🎯 AUDI</div>
+              <div className="text-white/60 font-bold">⭐ MERCEDES</div>
+              <div className="text-white/60 font-bold">🏁 PORSCHE</div>
+            </div>
+
+            {/* CTA Button */}
+            <div className="pt-4">
+              <Link
+                href="/marketplace"
+                className="inline-block px-10 py-4 bg-purple-600 hover:bg-purple-500 text-white rounded-lg font-bold text-lg transition-all transform hover:scale-105"
+              >
+                Browse
+              </Link>
+            </div>
+
+            {/* Description */}
+            <p className="text-white/70 text-center max-w-xl mx-auto">
+              Discover vehicles with intelligent pricing insights and get fair deals backed by real market data.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Unlock Your Car Section */}
+      <section className="bg-gradient-to-br from-purple-950 to-black py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl lg:text-5xl font-black text-white mb-4">
+              Unlock Your Car
+            </h2>
+            <p className="text-xl text-white/60 max-w-2xl mx-auto">
+              Get the best deal with our intelligence-driven pricing system
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Feature Card 1 */}
+            <div className="bg-gradient-to-br from-purple-900/40 to-black/40 border border-purple-600/30 rounded-xl p-6 hover:border-purple-500/60 transition-all">
+              <div className="relative h-48 bg-gradient-to-br from-purple-800/20 to-black/20 rounded-lg mb-4 flex items-center justify-center">
+                <div className="text-6xl">🚗</div>
               </div>
+              <h3 className="text-lg font-bold text-white mb-2">Used Exotic Luxury</h3>
+              <p className="text-white/60 text-sm">Premium vehicles at market value</p>
+            </div>
+
+            {/* Feature Card 2 */}
+            <div className="bg-gradient-to-br from-purple-900/40 to-black/40 border border-purple-600/30 rounded-xl p-6 hover:border-purple-500/60 transition-all">
+              <div className="relative h-48 bg-gradient-to-br from-purple-800/20 to-black/20 rounded-lg mb-4 flex items-center justify-center">
+                <div className="text-6xl">🏎️</div>
+              </div>
+              <h3 className="text-lg font-bold text-white mb-2">Modern Everyday Cars</h3>
+              <p className="text-white/60 text-sm">Reliable vehicles for daily commute</p>
+            </div>
+
+            {/* Feature Card 3 */}
+            <div className="bg-gradient-to-br from-purple-900/40 to-black/40 border border-purple-600/30 rounded-xl p-6 hover:border-purple-500/60 transition-all">
+              <div className="relative h-48 bg-gradient-to-br from-purple-800/20 to-black/20 rounded-lg mb-4 flex items-center justify-center">
+                <div className="text-6xl">🎯</div>
+              </div>
+              <h3 className="text-lg font-bold text-white mb-2">Smart Investment</h3>
+              <p className="text-white/60 text-sm">Data-driven pricing insights</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Features Section */}
-      <section className="bg-gradient-to-br from-purple-900 via-blue-900 to-purple-900 py-20">
+      {/* FAQ Section */}
+      <section className="bg-gradient-to-br from-black to-purple-950 py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl lg:text-5xl font-black text-white mb-4">
-              Why Choose
-              <br />
-              <span className="text-yellow-400">DriveMatch</span>
-            </h2>
-            <p className="text-xl text-purple-200 max-w-2xl mx-auto">
-              We revolutionize how you buy and sell vehicles with data-driven insights
-            </p>
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-black text-white mb-4">Frequently Asked Questions</h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Feature 1 */}
-            <div className="bg-gradient-to-br from-purple-800/50 to-purple-900/50 border border-yellow-400/30 rounded-xl p-8 hover:border-yellow-400/60 transition-all hover:shadow-xl hover:shadow-yellow-400/20">
-              <div className="text-4xl mb-4">💡</div>
-              <h3 className="text-xl font-bold text-yellow-300 mb-3">Price Intelligence</h3>
-              <p className="text-purple-200">
-                Our AI-powered system analyzes thousands of vehicles to give you fair pricing insights in real-time.
-              </p>
-            </div>
-
-            {/* Feature 2 */}
-            <div className="bg-gradient-to-br from-purple-800/50 to-purple-900/50 border border-yellow-400/30 rounded-xl p-8 hover:border-yellow-400/60 transition-all hover:shadow-xl hover:shadow-yellow-400/20">
-              <div className="text-4xl mb-4">🔍</div>
-              <h3 className="text-xl font-bold text-yellow-300 mb-3">Smart Search</h3>
-              <p className="text-purple-200">
-                Filter by price, features, condition, and more. Find exactly what you&apos;re looking for in seconds.
-              </p>
-            </div>
-
-            {/* Feature 3 */}
-            <div className="bg-gradient-to-br from-purple-800/50 to-purple-900/50 border border-yellow-400/30 rounded-xl p-8 hover:border-yellow-400/60 transition-all hover:shadow-xl hover:shadow-yellow-400/20">
-              <div className="text-4xl mb-4">✅</div>
-              <h3 className="text-xl font-bold text-yellow-300 mb-3">Trust & Safety</h3>
-              <p className="text-purple-200">
-                Verified listings, transparent pricing, and secure transactions. Buy with confidence.
-              </p>
-            </div>
+          <div className="space-y-4 max-w-3xl mx-auto">
+            {[1, 2, 3, 4].map((item) => (
+              <div key={item} className="bg-purple-900/30 border border-purple-600/30 rounded-lg p-4 hover:border-purple-500/60 transition-all">
+                <div className="flex items-center justify-between">
+                  <p className="text-white/80 font-medium">How does the pricing intelligence work?</p>
+                  <span className="text-white/40">+</span>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="bg-gradient-to-r from-yellow-400 to-yellow-500 py-16">
+      <section className="bg-gradient-to-br from-purple-900 to-purple-800 py-20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl font-black text-purple-900 mb-4">Ready to Find Your Perfect Vehicle?</h2>
-          <p className="text-lg text-purple-800 mb-8">Start browsing our inventory of verified listings with intelligent pricing.</p>
-          <Link
-            href="/marketplace"
-            className="inline-block px-10 py-4 bg-purple-900 text-yellow-300 rounded-lg font-bold text-lg hover:bg-purple-800 transition-all transform hover:scale-105"
-          >
-            Browse Marketplace
-          </Link>
+          <h2 className="text-4xl font-black text-white mb-4">Find Your Perfect Car Today</h2>
+          <div className="flex items-center justify-center gap-4 pt-8">
+            <Link
+              href="/marketplace"
+              className="px-10 py-4 bg-purple-600 hover:bg-purple-500 text-white rounded-lg font-bold transition-all"
+            >
+              Browse
+            </Link>
+            <button className="px-10 py-4 border-2 border-white text-white rounded-lg font-bold hover:bg-white/10 transition-all">
+              Learn More
+            </button>
+          </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="bg-gradient-to-r from-purple-950 to-blue-950 text-purple-200 py-12">
+      <footer className="bg-black text-white/60 py-12 border-t border-purple-600/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
             <div>
-              <div className="text-xl font-black mb-4">
-                <span className="bg-gradient-to-r from-yellow-300 to-yellow-500 bg-clip-text text-transparent">DRIVE</span>
-                <span className="text-white">MATCH</span>
-              </div>
+              <div className="text-xl font-black text-white mb-4">DriveMatch</div>
               <p className="text-sm">Intelligent vehicle marketplace</p>
             </div>
             <div>
               <h4 className="font-bold text-white mb-4">Platform</h4>
               <ul className="space-y-2 text-sm">
-                <li><a href="#" className="hover:text-yellow-300 transition-colors">Browse</a></li>
-                <li><a href="#" className="hover:text-yellow-300 transition-colors">Sell</a></li>
-                <li><a href="#" className="hover:text-yellow-300 transition-colors">About</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Browse</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Sell</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">About</a></li>
               </ul>
             </div>
             <div>
               <h4 className="font-bold text-white mb-4">Company</h4>
               <ul className="space-y-2 text-sm">
-                <li><a href="#" className="hover:text-yellow-300 transition-colors">Blog</a></li>
-                <li><a href="#" className="hover:text-yellow-300 transition-colors">Careers</a></li>
-                <li><a href="#" className="hover:text-yellow-300 transition-colors">Contact</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Blog</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Careers</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Contact</a></li>
               </ul>
             </div>
             <div>
               <h4 className="font-bold text-white mb-4">Legal</h4>
               <ul className="space-y-2 text-sm">
-                <li><a href="#" className="hover:text-yellow-300 transition-colors">Privacy</a></li>
-                <li><a href="#" className="hover:text-yellow-300 transition-colors">Terms</a></li>
-                <li><a href="#" className="hover:text-yellow-300 transition-colors">Security</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Privacy</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Terms</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Security</a></li>
               </ul>
             </div>
           </div>
-          <div className="border-t border-purple-700/50 pt-8 text-center text-sm">
+          <div className="border-t border-purple-600/20 pt-8 text-center text-sm text-white/40">
             <p>&copy; 2026 DriveMatch. All rights reserved.</p>
           </div>
         </div>
