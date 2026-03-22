@@ -1,7 +1,7 @@
 import Link from 'next/link';
-import { NavLink } from '@/components/NavLink';
-import { FeatureCard } from '@/components/FeatureCard';
-import { FAQItem } from '@/components/FAQItem';
+import { NavLink } from '../components/NavLink';
+import { FeatureCard } from '../components/FeatureCard';
+import { FAQItem } from '../components/FAQItem';
 
 // Navigation links
 const NAV_LINKS = [
