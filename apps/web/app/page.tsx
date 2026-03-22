@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Car, Gem, BarChart3 } from 'lucide-react';
+import { Car, Gem, BarChart3, Zap, Gauge, Crown, Rocket } from 'lucide-react';
 import { NavLink } from '../components/NavLink';
 import { FeatureCard } from '../components/FeatureCard';
 import { FAQItem } from '../components/FAQItem';
@@ -16,12 +16,12 @@ const NAV_LINKS = [
 
 // Brands
 const BRANDS = [
-  { emoji: '🏎️', name: 'TOYOTA' },
-  { emoji: '⚫', name: 'BMW' },
-  { emoji: '⚡', name: 'TESLA' },
-  { emoji: '🎯', name: 'AUDI' },
-  { emoji: '⭐', name: 'MERCEDES' },
-  { emoji: '🏁', name: 'PORSCHE' },
+  { icon: Car, name: 'TOYOTA' },
+  { icon: Gauge, name: 'BMW' },
+  { icon: Zap, name: 'TESLA' },
+  { icon: Rocket, name: 'AUDI' },
+  { icon: Crown, name: 'MERCEDES' },
+  { icon: Car, name: 'PORSCHE' },
 ] as const;
 
 // Features/Cards
@@ -152,9 +152,10 @@ export default function Home() {
 
             {/* Brand Logos */}
             <div className="flex items-center justify-center gap-6 flex-wrap pt-4">
-              {BRANDS.map(({ emoji, name }: typeof BRANDS[number]) => (
-                <div key={name} className="text-white/60 font-bold">
-                  {emoji} {name}
+              {BRANDS.map(({ icon: Icon, name }: typeof BRANDS[number]) => (
+                <div key={name} className="text-white/60 font-bold flex items-center gap-1.5">
+                  <Icon size={18} className="text-purple-400" />
+                  <span>{name}</span>
                 </div>
               ))}
             </div>
