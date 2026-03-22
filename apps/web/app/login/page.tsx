@@ -17,7 +17,7 @@ export default function LoginPage() {
   };
 
   return (
-    <main className="min-h-screen flex">
+    <main className="h-screen flex overflow-hidden">
       {/* Left Side - Image */}
       <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-gray-900 to-black relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
@@ -35,7 +35,7 @@ export default function LoginPage() {
       </div>
 
       {/* Right Side - Login Form */}
-      <div className="w-full lg:w-1/2 flex items-center justify-center bg-black px-4 sm:px-6 lg:px-8 py-6">
+      <div className="w-full lg:w-1/2 flex items-center justify-center bg-black px-4 sm:px-6 lg:px-8 py-6 overflow-y-auto">
         <div className="w-full max-w-md">
           {/* Logo */}
           <div className="mb-5">
