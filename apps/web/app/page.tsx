@@ -1,3 +1,5 @@
+'use client';
+
 import Link from 'next/link';
 import { NavLink } from '../components/NavLink';
 import { FeatureCard } from '../components/FeatureCard';
