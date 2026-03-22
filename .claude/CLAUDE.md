@@ -2,18 +2,19 @@
 
 ## What this project is
 
-Full-stack automotive marketplace platform built to mirror Cars Commerce (carscommerce.inc).
+Full-stack automotive marketplace platform built from scratch.
 Dealers list vehicles, buyers search with faceted filters, and a pricing intelligence engine
 badges each listing as "Great Deal", "Fair Price", or "High Price" based on real market data.
 
-The pricing feature replicates Cars Commerce's AccuTrade product — this is the primary
-differentiator and should be the focus of demos and interviews.
+The pricing intelligence engine is the primary differentiator — it uses statistical market
+analysis (PostgreSQL percentiles) to score every listing against comparable vehicles.
 
 ---
 
 ## Stack
 
 ### Frontend
+
 - Next.js 14 (App Router + Server Components)
 - React 18 + TypeScript (strict, no `any`)
 - TailwindCSS + shadcn/ui (Radix UI primitives)
@@ -21,12 +22,14 @@ differentiator and should be the focus of demos and interviews.
 - TanStack Query v5 (server state — never raw fetch/useEffect in components)
 
 ### Backend
+
 - Node.js + Express.js (REST API on port 3001)
 - PostgreSQL (primary DB — percentile queries, full-text, RLS)
 - Redis (Bull queue + cache + sessions)
 - Cloudinary (image upload and processing — NOT AWS S3)
 
 ### Testing
+
 - Jest + React Testing Library (RTL)
 - Supertest (API integration tests)
 - MSW (mock service worker for frontend API mocking)
@@ -83,6 +86,7 @@ automarket/
 4. **Use os prints como source of truth** — não invente elementos ou variações
 
 **Implementação:**
+
 - React + TailwindCSS (sem desvios da paleta do design)
 - Pixel-perfect fidelidade ao layout dos prints
 - Componentes isolados em `apps/web/components/`
@@ -93,16 +97,19 @@ automarket/
 ## Design Patterns
 
 ### Backend
+
 - **Strategy Pattern** — PricingEngine selects strategy based on data availability
 - **Repository Pattern** — all DB queries isolated from business logic
 - **Observer Pattern** — listing save → Bull job → async price calculation
 
 ### Frontend
+
 - **Container/Presentational** — containers fetch, presentational components render
 - **Custom Hooks** — all TanStack Query calls wrapped in named hooks
 - **Compound Components** — `<PriceScore>`, `<VehicleCard>`, `<SearchFilters>`
 
 ### Process
+
 - **FDD** — ship one complete vertical slice at a time (db → api → ui → tests)
 - **TDD** — write failing tests before implementation for all business logic
 
@@ -137,6 +144,7 @@ pnpm typecheck             # tsc --noEmit
 ## Conventions
 
 ### Commits
+
 ```
 feat(pricing): add regional percentile strategy
 fix(pricing): handle edge case when sample size < 5
@@ -146,17 +154,20 @@ chore: update dependencies
 ```
 
 ### TypeScript
+
 - Strict mode always. Never use `any` — use `unknown` and narrow.
 - Define types in `<feature>.types.ts` before writing implementation.
 - Shared types go in `packages/shared-types/`.
 
 ### Testing
+
 - Write tests BEFORE implementation (TDD).
 - Never use `toMatchSnapshot()` — test explicit values.
 - Mock at the boundary: unit tests mock repository, integration tests use test DB.
 - Coverage target: 80%+ on `features/pricing/` (the differentiator).
 
 ### React
+
 - Never use raw `fetch()` or `useEffect` for server data — always TanStack Query.
 - Presentational components receive all data as props — zero data fetching inside.
 - Every component and hook must have a `.test.tsx` / `.test.ts` file.
@@ -170,7 +181,7 @@ chore: update dependencies
 3. Row Level Security at DB level — data isolation survives application bugs
 4. Bull queue — listing creation never waits for price calculation
 5. Cloudinary — server never handles binary data
-6. This mirrors Cars Commerce's AccuTrade and Carson products exactly
+6. Price Intelligence Engine — market-aware badge scoring built entirely from scratch
 
 ---
 

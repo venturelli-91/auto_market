@@ -3,7 +3,7 @@ name: pricing intelligence
 description: >
   Auto-invoke when working on price scoring, badge calculation, market
   percentiles, PricingEngine, pricing strategies, price_badge column,
-  AccuTrade-like features, or anything in features/pricing/.
+  price intelligence features, or anything in features/pricing/.
 allowed tools: Read, Write, Bash, Grep, Glob
 ---
 
@@ -11,15 +11,15 @@ allowed tools: Read, Write, Bash, Grep, Glob
 
 ## Domain language
 
-| Term | Definition |
-|---|---|
-| `listing` | A vehicle posted for sale by a dealer |
-| `comparable` | A similar active vehicle used as market reference |
-| `price score` | Result of running a listing through PricingEngine |
-| `badge` | `great_deal` / `fair_price` / `high_price` / `null` |
-| `P25 / median / P75` | Percentiles of comparable prices |
-| `sample_size` | Number of comparables — minimum 5 for a valid score |
-| `stale score` | Score older than 24h — needs recalculation |
+| Term                 | Definition                                          |
+| -------------------- | --------------------------------------------------- |
+| `listing`            | A vehicle posted for sale by a dealer               |
+| `comparable`         | A similar active vehicle used as market reference   |
+| `price score`        | Result of running a listing through PricingEngine   |
+| `badge`              | `great_deal` / `fair_price` / `high_price` / `null` |
+| `P25 / median / P75` | Percentiles of comparable prices                    |
+| `sample_size`        | Number of comparables — minimum 5 for a valid score |
+| `stale score`        | Score older than 24h — needs recalculation          |
 
 ---
 
@@ -126,15 +126,15 @@ apps/web/
 ## Redis cache
 
 ```typescript
-const KEY = (id: string) => `price_score:${id}`
-const TTL = 86400 // 24 hours
+const KEY = (id: string) => `price_score:${id}`;
+const TTL = 86400; // 24 hours
 
 // Always check cache before calculating
-const cached = await redis.get(KEY(listingId))
-if (cached) return JSON.parse(cached)
+const cached = await redis.get(KEY(listingId));
+if (cached) return JSON.parse(cached);
 
 // After calculation, always cache result
-await redis.setex(KEY(listingId), TTL, JSON.stringify(score))
+await redis.setex(KEY(listingId), TTL, JSON.stringify(score));
 ```
 
 ---
@@ -143,11 +143,14 @@ await redis.setex(KEY(listingId), TTL, JSON.stringify(score))
 
 ```typescript
 // Enqueue on listing save — never calculate inline
-await pricingQueue.add({ listingId }, {
-  attempts: 3,
-  backoff: { type: 'exponential', delay: 2000 },
-  removeOnComplete: true,
-})
+await pricingQueue.add(
+  { listingId },
+  {
+    attempts: 3,
+    backoff: { type: 'exponential', delay: 2000 },
+    removeOnComplete: true,
+  }
+);
 ```
 
 ---
@@ -176,6 +179,6 @@ export function usePriceScore(listingId: string) {
     queryFn: () => api.get<PriceScore>(`/listings/${listingId}/price-score`),
     staleTime: 1000 * 60 * 30, // 30 min — scores don't change often
     retry: 1,
-  })
+  });
 }
 ```

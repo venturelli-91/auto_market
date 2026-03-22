@@ -1,13 +1,15 @@
 # /assistant — AI Shopping Assistant feature
 
-The "Carson" equivalent — streaming chat powered by Claude API.
+Streaming chat assistant powered by Claude API.
 
 ## Usage
+
 ```
 /assistant <task>
 ```
 
 Examples:
+
 ```
 /assistant implement streaming endpoint
 /assistant create chat widget component
@@ -47,6 +49,7 @@ apps/api/src/features/assistant/prompts/shopping-assistant.prompt.ts
 ```
 
 Must include:
+
 1. Role definition (helpful, not salesy)
 2. Current inventory injected as context
 3. Instruction to append `FILTERS: {...}` when intent is clear
