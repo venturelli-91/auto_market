@@ -91,18 +91,35 @@ NODE_ENV=development
 DATABASE_URL=postgresql://automarket:automarket_dev@localhost:5432/automarket
 REDIS_URL=redis://localhost:6379
 
-# Cloudinary (optional, leave empty for now)
+# Auth
+JWT_SECRET=change-this-in-production
+JWT_EXPIRES_IN=7d
+
+# Cloudinary (optional for dev)
 CLOUDINARY_CLOUD_NAME=
 CLOUDINARY_API_KEY=
 CLOUDINARY_API_SECRET=
-
-# Anthropic (optional, leave empty for now)
-ANTHROPIC_API_KEY=
 ```
 
 ---
 
-## 5. Start Development Servers
+## 5. Run Migrations and Seed
+
+```bash
+pnpm --filter=api db:migrate   # Create tables + indexes + RLS policies
+pnpm --filter=api db:seed      # Insert 3 dealers + 20 published listings
+```
+
+You should see:
+```
+  apply 001_initial.sql
+Migrations complete.
+Seeded 3 dealers and 20 listings.
+```
+
+---
+
+## 6. Start Development Servers
 
 ```bash
 pnpm dev
@@ -119,12 +136,13 @@ ready - started server on 0.0.0.0:5000
 apps/api:
 ✓ Database connected
 ✓ Redis connected
+✓ Pricing worker started
 ✓ API running on http://localhost:3001
 ```
 
 ---
 
-## 6. Open in Browser
+## 7. Open in Browser
 
 Open [http://localhost:5000](http://localhost:5000)
 
@@ -162,10 +180,10 @@ pnpm build --filter=@automarket/web
 pnpm build --filter=@automarket/api
 ```
 
-### Database (Placeholder)
+### Database
 ```bash
-pnpm db:migrate       # Run migrations (not yet implemented)
-pnpm db:seed          # Seed sample data (not yet implemented)
+pnpm --filter=api db:migrate   # Run migrations (idempotent)
+pnpm --filter=api db:seed      # Seed 20 vehicle listings
 ```
 
 ---
