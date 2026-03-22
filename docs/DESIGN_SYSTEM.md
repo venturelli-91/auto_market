@@ -382,12 +382,49 @@ python3 search.py "insurance quotes" --design-system
 
 ---
 
+## Design Evolution
+
+### Design 1 & 2 (Dark Theme Variants)
+- Dark backgrounds with purple/yellow accents
+- Evaluated but not selected for MVP
+- Could be used for future dark mode variant
+
+### Design 3 (DriveMatch - SELECTED)
+- **Chosen for MVP** based on professional automotive marketplace standards
+- Light theme with blue accents (matches MASTER.md)
+- Sidebar filters on desktop, full-width on mobile
+- 2-column grid layout for vehicle listings
+- Cleaner, more accessible than dark designs
+
+## Implemented Components
+
+1. **VehicleCard** ✅
+   - Vehicle image with 16:9 aspect ratio
+   - Compare + Favorite action buttons
+   - Title, metadata (mileage, color)
+   - Price with PriceScore badge
+   - View Details CTA
+
+2. **SearchFiltersContainer** ✅
+   - Brand & Model selectors (dynamic)
+   - Price range dual slider
+   - Duration dropdown
+   - Instant availability toggle
+   - Reset & Apply buttons
+
+3. **ListingsContainer** ✅
+   - 2-column responsive grid
+   - Loading skeletons
+   - Error & empty states
+   - TanStack Query integration
+
 ## Next Steps
 
-1. **Review `design-system/MASTER.md`** — This is your source of truth
-2. **Build first component** — VehicleCard, using the specs
-3. **Create page overrides** — If you need vertical-specific styles
-4. **Document decisions** — In commit messages, explain *why* you chose colors/spacing
+1. **Create remaining components** — DealerCard, HeroSection (if needed)
+2. **Add pagination** — Cursor-based pagination for listings
+3. **Connect filters to API** — Make SearchFiltersContainer actually filter
+4. **Add favorites/compare** — Implement action button functionality
+5. **Refine responsiveness** — Mobile hamburger menu for filters
 
 ---
 

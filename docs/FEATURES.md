@@ -10,7 +10,7 @@ These features must be implemented before demo/interview.
 
 ### 1. Listings Catalog
 
-**Status:** ⏳ Planning
+**Status:** ⏳ In Progress (MVP UI done, API integration pending)
 
 **Description:**
 Display available vehicles for sale with vehicle details, images, pricing, and dealer info.
@@ -41,9 +41,10 @@ Display available vehicles for sale with vehicle details, images, pricing, and d
 - `vehicle_images` table (listing_id, url, cloudinary_public_id, order)
 
 **Design Reference:**
-- `public/designs/vehicle-card.png`
-- `public/designs/vehicle-details.png`
-- `public/designs/listings-grid.png`
+- `public/designs/3.webp` (DriveMatch - main listing page with sidebar filters)
+- Vehicle cards with compare/favorite buttons ✅ Implemented
+- Sidebar filter panel ✅ Implemented
+- 2-column responsive grid ✅ Implemented
 
 ---
 
@@ -104,7 +105,7 @@ Analyze market data and badge each listing as "Great Deal", "Fair Price", or "Hi
 
 ### 3. Faceted Search
 
-**Status:** ⏳ Planning
+**Status:** 🔄 UI Done, Backend Integration Pending
 
 **Description:**
 Filter and search listings by price, year, mileage, fuel type, transmission, condition, make, model, etc.
@@ -120,11 +121,10 @@ Filter and search listings by price, year, mileage, fuel type, transmission, con
 - As a buyer, I can sort by price (ascending/descending), relevance, newest, deal score
 
 **Components (Frontend):**
-- `SearchFilters` — Sidebar with filter controls
-- `FacetCheckbox` — Single facet with count
-- `PriceRangeSlider` — Dual-handle slider for min/max
-- `SortDropdown` — Sort options selector
-- `SearchResults` — Grid of vehicles matching filters
+- `SearchFiltersContainer` ✅ — Sidebar with filter controls (Brand, Model, Price, Duration, Instant Availability)
+- `PriceRangeSlider` ✅ — Dual-handle slider ($10k - $100k)
+- `ListingsContainer` ✅ — Grid of vehicles (2 columns)
+- Still needed: Facet counters, Sort dropdown, Dynamic filtering
 
 **API Endpoints (Backend):**
 - `GET /api/search` — List listings with filters + facets
