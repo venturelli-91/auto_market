@@ -6,6 +6,7 @@ import { errorHandler } from './shared/middleware';
 import { pool } from './shared/db';
 import { redis } from './shared/redis';
 import { pricingQueue } from './shared/queue';
+import { createListingsRouter } from './features/listings/listings.routes';
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -20,10 +21,8 @@ app.get('/health', (_req, res) => {
   res.json({ status: 'ok' });
 });
 
-// Routes placeholder
-app.get('/api/listings', (_req, res) => {
-  res.json({ message: 'Listings endpoint — coming soon' });
-});
+// Routes
+app.use('/api/listings', createListingsRouter(pool));
 
 // Error handling
 app.use(errorHandler);
