@@ -1,0 +1,63 @@
+import 'dotenv/config';
+import express from 'express';
+import cors from 'cors';
+import helmet from 'helmet';
+import { errorHandler } from './shared/middleware';
+import { pool } from './shared/db';
+import { redis } from './shared/redis';
+import { pricingQueue } from './shared/queue';
+
+const app = express();
+const PORT = process.env.PORT || 3001;
+
+// Middleware
+app.use(helmet());
+app.use(cors({ origin: process.env.FRONTEND_URL || 'http://localhost:3000' }));
+app.use(express.json());
+
+// Health check
+app.get('/health', (req, res) => {
+  res.json({ status: 'ok' });
+});
+
+// Routes placeholder
+app.get('/api/listings', (req, res) => {
+  res.json({ message: 'Listings endpoint — coming soon' });
+});
+
+// Error handling
+app.use(errorHandler);
+
+// Server startup
+async function start(): Promise<void> {
+  try {
+    // Test database connection
+    await pool.query('SELECT NOW()');
+    console.log('✓ Database connected');
+
+    // Test Redis connection
+    await redis.ping();
+    console.log('✓ Redis connected');
+
+    // Initialize Bull queue
+    console.log('✓ Queue initialized');
+
+    app.listen(PORT, () => {
+      console.log(`✓ API running on http://localhost:${PORT}`);
+    });
+  } catch (err) {
+    console.error('Failed to start server:', err);
+    process.exit(1);
+  }
+}
+
+start();
+
+// Graceful shutdown
+process.on('SIGTERM', async () => {
+  console.log('SIGTERM received, shutting down gracefully');
+  await pool.end();
+  await redis.quit();
+  await pricingQueue.close();
+  process.exit(0);
+});
