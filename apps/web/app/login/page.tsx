@@ -18,20 +18,52 @@ export default function LoginPage() {
 
   return (
     <main className="h-screen flex overflow-hidden">
-      {/* Left Side - Image */}
-      <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-gray-900 to-black relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-        <img
-          src="https://images.unsplash.com/photo-1552820728-8ac41f1ce891?w=800&h=1000&fit=crop"
-          alt="Luxury car showroom"
-          className="w-full h-full object-cover"
-        />
+      {/* Left Side - Car Background */}
+      <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden">
+        {/* Background Gradient */}
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-purple-950 to-black" />
+
+        {/* Animated Light Effects */}
+        <div className="absolute inset-0">
+          <div className="absolute top-0 left-1/4 w-96 h-96 bg-purple-600/20 rounded-full blur-3xl animate-pulse" />
+          <div className="absolute bottom-1/4 right-0 w-80 h-80 bg-purple-700/15 rounded-full blur-3xl" />
+          <div className="absolute top-1/3 right-1/4 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
+        </div>
+
+        {/* Car Silhouette Lines */}
+        <div className="absolute inset-0">
+          <svg className="w-full h-full opacity-20" viewBox="0 0 400 600" preserveAspectRatio="xMidYMid slice">
+            {/* Car outline */}
+            <path d="M 80 350 L 120 250 L 280 250 L 320 350 Z" stroke="url(#carGradient)" strokeWidth="2" fill="none" vectorEffect="non-scaling-stroke" />
+            <ellipse cx="140" cy="360" rx="35" ry="40" stroke="url(#carGradient)" strokeWidth="2" fill="none" vectorEffect="non-scaling-stroke" />
+            <ellipse cx="260" cy="360" rx="35" ry="40" stroke="url(#carGradient)" strokeWidth="2" fill="none" vectorEffect="non-scaling-stroke" />
+            <defs>
+              <linearGradient id="carGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#a855f7" />
+                <stop offset="100%" stopColor="#7c3aed" />
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+
+        {/* Grid Pattern */}
+        <div className="absolute inset-0 opacity-5" style={{
+          backgroundImage: 'linear-gradient(90deg, rgba(168,85,247,0.1) 1px, transparent 1px), linear-gradient(rgba(168,85,247,0.1) 1px, transparent 1px)',
+          backgroundSize: '50px 50px'
+        }} />
+
+        {/* Content Overlay */}
         <div className="absolute inset-0 flex items-center justify-center">
-          <div className="text-center text-white px-8">
+          <div className="text-center text-white px-8 z-10">
+            <div className="text-6xl mb-4">🚗</div>
             <h2 className="text-4xl font-black mb-4">DriveMatch</h2>
-            <p className="text-xl text-white/80">Encontre o veículo perfeito com inteligência</p>
+            <p className="text-xl text-white/80">Find Your Perfect Car</p>
+            <p className="text-sm text-white/60 mt-2">Powered by Intelligent Pricing</p>
           </div>
         </div>
+
+        {/* Bottom Gradient Fade */}
+        <div className="absolute bottom-0 inset-x-0 h-32 bg-gradient-to-t from-black to-transparent" />
       </div>
 
       {/* Right Side - Login Form */}
