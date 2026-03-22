@@ -1,38 +1,61 @@
 'use client';
 
-import { ListingsContainer } from '@/containers/ListingsContainer';
+import { ListingsContainer } from '../containers/ListingsContainer';
+import { SearchFiltersContainer } from '../containers/SearchFiltersContainer';
 
 export default function Home() {
   return (
     <main className="min-h-screen bg-white">
-      {/* Hero Section */}
-      <section className="bg-gradient-to-b from-blue-50 to-white py-12 md:py-20">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-            AutoMarket
-          </h1>
-          <p className="text-xl text-gray-600 mb-8">
-            Find Your Perfect Car with Price Intelligence
-          </p>
-          <p className="text-gray-500 max-w-2xl mx-auto">
-            Browse verified vehicle listings with market-based pricing analysis.
-            Know if you're getting a great deal, fair price, or paying too much.
-          </p>
+      {/* Header */}
+      <header className="bg-white border-b border-gray-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-3xl font-bold text-gray-900">DriveMatch</h1>
+              <p className="text-gray-600 text-sm mt-1">Find Your Perfect Vehicle</p>
+            </div>
+            <div className="flex gap-4">
+              <button className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
+                <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.5 1.5H3.75A2.25 2.25 0 001.5 3.75v16.5A2.25 2.25 0 003.75 22.5h16.5a2.25 2.25 0 002.25-2.25V13.5" />
+                </svg>
+              </button>
+              <button className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
+                <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
+                </svg>
+              </button>
+              <button className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
+                <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                </svg>
+              </button>
+              <button className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
+                <svg className="w-6 h-6 text-gray-600" fill="currentColor" viewBox="0 0 24 24">
+                  <circle cx="12" cy="12" r="10" />
+                </svg>
+              </button>
+            </div>
+          </div>
         </div>
-      </section>
+      </header>
 
-      {/* Listings Section */}
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="mb-8">
-          <h2 className="text-2xl md:text-3xl font-bold text-gray-900">
-            Available Listings
-          </h2>
-          <p className="text-gray-600 mt-2">
-            Browse our latest vehicle listings
-          </p>
-        </div>
-        <ListingsContainer />
-      </section>
+      {/* Main Content - Sidebar + Grid */}
+      <div className="flex gap-6 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Sidebar Filters - Hidden on mobile */}
+        <aside className="hidden lg:block w-64 flex-shrink-0">
+          <SearchFiltersContainer />
+        </aside>
+
+        {/* Listings Grid */}
+        <section className="flex-1">
+          <div className="mb-6">
+            <h2 className="text-2xl font-bold text-gray-900">Available Vehicles</h2>
+            <p className="text-gray-600 text-sm mt-1">Browse our latest inventory</p>
+          </div>
+          <ListingsContainer />
+        </section>
+      </div>
     </main>
   );
 }
