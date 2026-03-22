@@ -1,4 +1,99 @@
 import Link from 'next/link';
+import { NavLink } from '@/components/NavLink';
+import { FeatureCard } from '@/components/FeatureCard';
+import { FAQItem } from '@/components/FAQItem';
+
+// Navigation links
+const NAV_LINKS = [
+  { label: 'Marketplace', href: '/marketplace' },
+  { label: 'Features', href: '/features' },
+  { label: 'About', href: '/about' },
+  { label: 'Contact', href: '/contact' },
+] as const;
+
+// Brands
+const BRANDS = [
+  { emoji: '🏎️', name: 'TOYOTA' },
+  { emoji: '⚫', name: 'BMW' },
+  { emoji: '⚡', name: 'TESLA' },
+  { emoji: '🎯', name: 'AUDI' },
+  { emoji: '⭐', name: 'MERCEDES' },
+  { emoji: '🏁', name: 'PORSCHE' },
+] as const;
+
+// Features/Cards
+const FEATURE_CARDS = [
+  {
+    id: 'luxury',
+    emoji: '🚗',
+    title: 'Used Exotic Luxury',
+    description: 'Premium vehicles at market value',
+  },
+  {
+    id: 'everyday',
+    emoji: '🏎️',
+    title: 'Modern Everyday Cars',
+    description: 'Reliable vehicles for daily commute',
+  },
+  {
+    id: 'investment',
+    emoji: '🎯',
+    title: 'Smart Investment',
+    description: 'Data-driven pricing insights',
+  },
+] as const;
+
+// FAQ
+const FAQ_ITEMS = [
+  {
+    id: 'pricing',
+    question: 'How does the pricing intelligence work?',
+    answer: 'Our AI analyzes market data to provide fair pricing insights.',
+  },
+  {
+    id: 'data',
+    question: 'What data sources do you use?',
+    answer: 'We aggregate data from thousands of vehicle listings.',
+  },
+  {
+    id: 'accuracy',
+    question: 'How accurate are price predictions?',
+    answer: 'Our predictions have 95%+ accuracy on historical data.',
+  },
+  {
+    id: 'security',
+    question: 'Is my data secure?',
+    answer: 'Yes, we use enterprise-grade encryption for all data.',
+  },
+] as const;
+
+// Footer
+const FOOTER_SECTIONS = [
+  {
+    title: 'Platform',
+    links: [
+      { label: 'Browse', href: '/marketplace' },
+      { label: 'Sell', href: '/sell' },
+      { label: 'About', href: '/about' },
+    ],
+  },
+  {
+    title: 'Company',
+    links: [
+      { label: 'Blog', href: '/blog' },
+      { label: 'Careers', href: '/careers' },
+      { label: 'Contact', href: '/contact' },
+    ],
+  },
+  {
+    title: 'Legal',
+    links: [
+      { label: 'Privacy', href: '/privacy' },
+      { label: 'Terms', href: '/terms' },
+      { label: 'Security', href: '/security' },
+    ],
+  },
+] as const;
 
 export default function Home() {
   return (
@@ -7,22 +102,15 @@ export default function Home() {
       <nav className="fixed top-0 w-full z-50 bg-black/80 backdrop-blur-md border-b border-purple-600/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <div className="w-6 h-6 bg-white rounded-full"></div>
+            <div className="w-6 h-6 bg-white rounded-full" aria-hidden="true" />
             <div className="text-xl font-black text-white">DriveMatch</div>
           </div>
           <div className="flex items-center gap-6">
-            <Link href="/marketplace" className="text-white hover:text-purple-400 transition-colors font-medium text-sm">
-              Marketplace
-            </Link>
-            <Link href="/features" className="text-white hover:text-purple-400 transition-colors font-medium text-sm">
-              Features
-            </Link>
-            <Link href="/about" className="text-white hover:text-purple-400 transition-colors font-medium text-sm">
-              About
-            </Link>
-            <Link href="/contact" className="text-white hover:text-purple-400 transition-colors font-medium text-sm">
-              Contact
-            </Link>
+            {NAV_LINKS.map(({ label, href }: typeof NAV_LINKS[number]) => (
+              <NavLink key={href} href={href}>
+                {label}
+              </NavLink>
+            ))}
             <button className="px-6 py-2 bg-purple-600 hover:bg-purple-500 text-white rounded-lg font-bold transition-all">
               Sign In
             </button>
@@ -49,21 +137,20 @@ export default function Home() {
             </h1>
 
             {/* Hero Car Showcase - centered */}
-            <div className="relative h-64 w-full flex items-center justify-center my-8">
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-64 h-64 bg-gradient-radial from-purple-500/30 to-transparent rounded-full blur-3xl" />
+            <div className="relative h-64 w-full my-8 flex items-center justify-center">
+              <div className="absolute w-64 h-64 bg-gradient-radial from-purple-500/30 to-transparent rounded-full blur-3xl" />
+              <div className="relative text-6xl" aria-hidden="true">
+                🚗
               </div>
-              <div className="relative text-6xl">🚗</div>
             </div>
 
             {/* Brand Logos */}
             <div className="flex items-center justify-center gap-6 flex-wrap pt-4">
-              <div className="text-white/60 font-bold">🏎️ TOYOTA</div>
-              <div className="text-white/60 font-bold">⚫ BMW</div>
-              <div className="text-white/60 font-bold">⚡ TESLA</div>
-              <div className="text-white/60 font-bold">🎯 AUDI</div>
-              <div className="text-white/60 font-bold">⭐ MERCEDES</div>
-              <div className="text-white/60 font-bold">🏁 PORSCHE</div>
+              {BRANDS.map(({ emoji, name }: typeof BRANDS[number]) => (
+                <div key={name} className="text-white/60 font-bold">
+                  {emoji} {name}
+                </div>
+              ))}
             </div>
 
             {/* CTA Button */}
@@ -97,32 +184,9 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Feature Card 1 */}
-            <div className="bg-gradient-to-br from-purple-900/40 to-black/40 border border-purple-600/30 rounded-xl p-6 hover:border-purple-500/60 transition-all">
-              <div className="relative h-48 bg-gradient-to-br from-purple-800/20 to-black/20 rounded-lg mb-4 flex items-center justify-center">
-                <div className="text-6xl">🚗</div>
-              </div>
-              <h3 className="text-lg font-bold text-white mb-2">Used Exotic Luxury</h3>
-              <p className="text-white/60 text-sm">Premium vehicles at market value</p>
-            </div>
-
-            {/* Feature Card 2 */}
-            <div className="bg-gradient-to-br from-purple-900/40 to-black/40 border border-purple-600/30 rounded-xl p-6 hover:border-purple-500/60 transition-all">
-              <div className="relative h-48 bg-gradient-to-br from-purple-800/20 to-black/20 rounded-lg mb-4 flex items-center justify-center">
-                <div className="text-6xl">🏎️</div>
-              </div>
-              <h3 className="text-lg font-bold text-white mb-2">Modern Everyday Cars</h3>
-              <p className="text-white/60 text-sm">Reliable vehicles for daily commute</p>
-            </div>
-
-            {/* Feature Card 3 */}
-            <div className="bg-gradient-to-br from-purple-900/40 to-black/40 border border-purple-600/30 rounded-xl p-6 hover:border-purple-500/60 transition-all">
-              <div className="relative h-48 bg-gradient-to-br from-purple-800/20 to-black/20 rounded-lg mb-4 flex items-center justify-center">
-                <div className="text-6xl">🎯</div>
-              </div>
-              <h3 className="text-lg font-bold text-white mb-2">Smart Investment</h3>
-              <p className="text-white/60 text-sm">Data-driven pricing insights</p>
-            </div>
+            {FEATURE_CARDS.map(({ id, emoji, title, description }: typeof FEATURE_CARDS[number]) => (
+              <FeatureCard key={id} emoji={emoji} title={title} description={description} />
+            ))}
           </div>
         </div>
       </section>
@@ -135,13 +199,8 @@ export default function Home() {
           </div>
 
           <div className="space-y-4 max-w-3xl mx-auto">
-            {[1, 2, 3, 4].map((item) => (
-              <div key={item} className="bg-purple-900/30 border border-purple-600/30 rounded-lg p-4 hover:border-purple-500/60 transition-all">
-                <div className="flex items-center justify-between">
-                  <p className="text-white/80 font-medium">How does the pricing intelligence work?</p>
-                  <span className="text-white/40">+</span>
-                </div>
-              </div>
+            {FAQ_ITEMS.map(({ id, question, answer }: typeof FAQ_ITEMS[number]) => (
+              <FAQItem key={id} id={id} question={question} answer={answer} />
             ))}
           </div>
         </div>
@@ -173,30 +232,20 @@ export default function Home() {
               <div className="text-xl font-black text-white mb-4">DriveMatch</div>
               <p className="text-sm">Intelligent vehicle marketplace</p>
             </div>
-            <div>
-              <h4 className="font-bold text-white mb-4">Platform</h4>
-              <ul className="space-y-2 text-sm">
-                <li><a href="#" className="hover:text-white transition-colors">Browse</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Sell</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">About</a></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-bold text-white mb-4">Company</h4>
-              <ul className="space-y-2 text-sm">
-                <li><a href="#" className="hover:text-white transition-colors">Blog</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Careers</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Contact</a></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-bold text-white mb-4">Legal</h4>
-              <ul className="space-y-2 text-sm">
-                <li><a href="#" className="hover:text-white transition-colors">Privacy</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Terms</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Security</a></li>
-              </ul>
-            </div>
+            {FOOTER_SECTIONS.map(({ title, links }: typeof FOOTER_SECTIONS[number]) => (
+              <div key={title}>
+                <h4 className="font-bold text-white mb-4">{title}</h4>
+                <ul className="space-y-2 text-sm">
+                  {links.map(({ label, href }: typeof links[number]) => (
+                    <li key={label}>
+                      <Link href={href} className="hover:text-white transition-colors">
+                        {label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </div>
           <div className="border-t border-purple-600/20 pt-8 text-center text-sm text-white/40">
             <p>&copy; 2026 DriveMatch. All rights reserved.</p>
