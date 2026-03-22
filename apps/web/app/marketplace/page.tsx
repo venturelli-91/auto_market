@@ -1,7 +1,7 @@
 import { Suspense } from 'react';
 import Link from 'next/link';
-import { ListingsContainer } from '../../containers/ListingsContainer';
-import { SearchFiltersContainer } from '../../containers/SearchFiltersContainer';
+// import { ListingsContainer } from '../../containers/ListingsContainer';
+// import { SearchFiltersContainer } from '../../containers/SearchFiltersContainer';
 
 export const dynamic = 'force-dynamic';
 
@@ -50,7 +50,8 @@ export default function Marketplace() {
         {/* Sidebar Filters - Hidden on mobile */}
         <aside className="hidden lg:block w-64 flex-shrink-0">
           <Suspense fallback={<div className="bg-gray-100 rounded-lg p-6 h-96" />}>
-            <SearchFiltersContainer />
+            {/* <SearchFiltersContainer /> */}
+            <div className="bg-gray-100 rounded-lg p-6">Filters loading...</div>
           </Suspense>
         </aside>
 
@@ -61,7 +62,8 @@ export default function Marketplace() {
             <p className="text-gray-600 text-sm mt-1">Browse our latest inventory with intelligent pricing</p>
           </div>
           <Suspense fallback={<div className="text-center py-8">Loading vehicles...</div>}>
-            <ListingsContainer />
+            {/* <ListingsContainer /> */}
+            <div className="text-center py-8">Listings loading...</div>
           </Suspense>
         </section>
       </div>
