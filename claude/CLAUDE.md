@@ -73,6 +73,23 @@ automarket/
 
 ---
 
+## Design References
+
+**Antes de criar qualquer componente de UI, obrigatoriamente:**
+
+1. **Leia os arquivos de imagem** em `public/designs/`
+2. **Analise fidelidade visual**: cores, espaçamentos, tipografia, layout
+3. **Descreva o que viu** antes de escrever qualquer código
+4. **Use os prints como source of truth** — não invente elementos ou variações
+
+**Implementação:**
+- React + TailwindCSS (sem desvios da paleta do design)
+- Pixel-perfect fidelidade ao layout dos prints
+- Componentes isolados em `apps/web/components/`
+- Cada componente visual = 1 commit atômico
+
+---
+
 ## Design Patterns
 
 ### Backend
