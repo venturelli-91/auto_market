@@ -222,26 +222,43 @@ export class ListingsRepository {
 Different pricing algorithms are separate classes implementing a common interface:
 
 ```typescript
-interface PricingStrategy {
-  calculate(input: PricingInput): Promise<PriceScore>;
+interface IPricingStrategy {
+  readonly name: string;
+  canApply(input: PricingInput, pool: Pool): Promise<boolean>;
+  compute(input: PricingInput, pool: Pool): Promise<MarketStats>;
 }
 
-export class RegionalPricingStrategy implements PricingStrategy { }
-export class NationalPricingStrategy implements PricingStrategy { }
-export class ExactMatchStrategy implements PricingStrategy { }
+export class ExactMatchStrategy implements IPricingStrategy { }  // make+model, year ±2, mileage ±30k
+export class MakeModelStrategy  implements IPricingStrategy { }  // make+model, year ±3
+export class NationalStrategy   implements IPricingStrategy { }  // make+model, any year
 ```
 
-The `PricingEngine` selects the right strategy based on data availability:
+The `PricingEngine` tries strategies in order (most specific → broadest), using the first that qualifies (≥ 5 samples):
 
 ```typescript
 export class PricingEngine {
-  async calculatePrice(vehicle: Vehicle): Promise<PriceScore> {
-    if (hasExactMatch) return new ExactMatchStrategy().calculate(...);
-    if (hasRegionalData) return new RegionalPricingStrategy().calculate(...);
-    return new NationalPricingStrategy().calculate(...);
+  private readonly strategies = [
+    new ExactMatchStrategy(),
+    new MakeModelStrategy(),
+    new NationalStrategy(),
+  ];
+
+  async calculate(input: PricingInput): Promise<PricingOutput | null> {
+    for (const strategy of this.strategies) {
+      if (await strategy.canApply(input, this.pool)) {
+        const stats = await strategy.compute(input, this.pool);
+        return { badge: assignBadge(price, stats.p25, stats.p75), ...stats };
+      }
+    }
+    return null; // not enough market data
   }
 }
 ```
+
+Badge assignment:
+- `price < p25` → **GREAT_DEAL**
+- `p25 ≤ price ≤ p75` → **FAIR_PRICE**
+- `price > p75` → **HIGH_PRICE**
 
 **Why?**
 - Adding a new pricing rule = new class, not a new `if/else`
@@ -264,13 +281,15 @@ export class ListingsController {
 }
 ```
 
-The pricing job is consumed asynchronously by a worker (to be implemented):
+The pricing job is consumed asynchronously by `pricing.worker.ts`:
 
 ```typescript
+// apps/api/src/features/pricing/pricing.worker.ts
 pricingQueue.process(async (job) => {
-  const listing = await listingsRepository.findById(job.data.listingId);
-  const priceScore = await pricingEngine.calculatePrice(listing.vehicle);
-  await listingsRepository.updatePrice(listing.id, priceScore);
+  const { listingId } = job.data;
+  const listing = await service.findById(listingId);
+  const result  = await engine.calculate({ vehicle: listing.vehicle });
+  if (result) await repository.updatePriceScore(listingId, result);
 });
 ```
 
@@ -310,8 +329,19 @@ automarket/
 │           │   │   ├── listings.repository.ts
 │           │   │   └── listings.routes.ts
 │           │   ├── pricing/
-│           │   ├── search/
-│           │   └── dealers/
+│           │   │   ├── pricing.strategy.ts     ← IPricingStrategy interface
+│           │   │   ├── pricing.engine.ts       ← selects strategy, assigns badge
+│           │   │   ├── pricing.worker.ts       ← Bull queue processor
+│           │   │   └── strategies/
+│           │   │       ├── exact-match.strategy.ts
+│           │   │       ├── make-model.strategy.ts
+│           │   │       └── national.strategy.ts
+│           │   └── auth/
+│           │       ├── auth.types.ts
+│           │       ├── auth.repository.ts
+│           │       ├── auth.service.ts
+│           │       ├── auth.controller.ts
+│           │       └── auth.routes.ts
 │           └── shared/
 │               ├── db.ts               ← PostgreSQL connection + RLS helper
 │               ├── redis.ts            ← Redis client
@@ -379,4 +409,3 @@ Before merging to `main`:
 ---
 
 *Last updated: 2026-03-22*
-*Decisions made during initial architecture phase. Revisit quarterly or when adding new features.*
