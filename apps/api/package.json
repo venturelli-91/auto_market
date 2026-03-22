@@ -11,8 +11,8 @@
     "typecheck": "tsc --noEmit",
     "test": "jest",
     "test:watch": "jest --watch",
-    "db:migrate": "echo 'TODO: implement migrations'",
-    "db:seed": "echo 'TODO: implement seed'"
+    "db:migrate": "tsx src/migrate.ts",
+    "db:seed": "tsx src/seed.ts"
   },
   "dependencies": {
     "bull": "^4.11.4",
