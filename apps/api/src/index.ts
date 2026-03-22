@@ -7,6 +7,7 @@ import { pool } from './shared/db';
 import { redis } from './shared/redis';
 import { pricingQueue } from './shared/queue';
 import { createListingsRouter } from './features/listings/listings.routes';
+import { startPricingWorker } from './features/pricing/pricing.worker';
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -38,8 +39,9 @@ async function start(): Promise<void> {
     await redis.ping();
     console.log('✓ Redis connected');
 
-    // Initialize Bull queue
-    console.log('✓ Queue initialized');
+    // Start pricing worker
+    startPricingWorker(pool);
+    console.log('✓ Pricing worker started');
 
     app.listen(PORT, () => {
       console.log(`✓ API running on http://localhost:${PORT}`);
