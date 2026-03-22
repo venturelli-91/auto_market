@@ -3,15 +3,11 @@ import { Providers } from '../components/Providers';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'AutoMarket - Automotive Marketplace',
+  title: 'DriveMatch - Automotive Marketplace',
   description: 'Buy and sell vehicles with price intelligence',
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <body>

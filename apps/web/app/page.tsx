@@ -1,103 +1,12 @@
 'use client';
 
 import Link from 'next/link';
-import { Car, Gem, BarChart3, Zap, Gauge, Crown, Rocket } from 'lucide-react';
+import { Car } from 'lucide-react';
 import { NavLink } from '../components/NavLink';
 import { FeatureCard } from '../components/FeatureCard';
 import { FAQItem } from '../components/FAQItem';
 import { ThemeToggle } from '../components/ThemeToggle';
-
-// Navigation links
-const NAV_LINKS = [
-  { label: 'Marketplace', href: '/marketplace' },
-  { label: 'Features', href: '/features' },
-  { label: 'About', href: '/about' },
-  { label: 'Contact', href: '/contact' },
-] as const;
-
-// Brands
-const BRANDS = [
-  { icon: Car, name: 'TOYOTA' },
-  { icon: Gauge, name: 'BMW' },
-  { icon: Zap, name: 'TESLA' },
-  { icon: Rocket, name: 'AUDI' },
-  { icon: Crown, name: 'MERCEDES' },
-  { icon: Car, name: 'PORSCHE' },
-] as const;
-
-// Features/Cards
-const FEATURE_CARDS = [
-  {
-    id: 'luxury',
-    icon: Gem,
-    title: 'Used Exotic Luxury',
-    description: 'Premium vehicles at market value',
-  },
-  {
-    id: 'everyday',
-    icon: Car,
-    title: 'Modern Everyday Cars',
-    description: 'Reliable vehicles for daily commute',
-  },
-  {
-    id: 'investment',
-    icon: BarChart3,
-    title: 'Smart Investment',
-    description: 'Data-driven pricing insights',
-  },
-] as const;
-
-// FAQ
-const FAQ_ITEMS = [
-  {
-    id: 'pricing',
-    question: 'How does the pricing intelligence work?',
-    answer: 'Our AI analyzes market data to provide fair pricing insights.',
-  },
-  {
-    id: 'data',
-    question: 'What data sources do you use?',
-    answer: 'We aggregate data from thousands of vehicle listings.',
-  },
-  {
-    id: 'accuracy',
-    question: 'How accurate are price predictions?',
-    answer: 'Our predictions have 95%+ accuracy on historical data.',
-  },
-  {
-    id: 'security',
-    question: 'Is my data secure?',
-    answer: 'Yes, we use enterprise-grade encryption for all data.',
-  },
-] as const;
-
-// Footer
-const FOOTER_SECTIONS = [
-  {
-    title: 'Platform',
-    links: [
-      { label: 'Browse', href: '/marketplace' },
-      { label: 'Sell', href: '/sell' },
-      { label: 'About', href: '/about' },
-    ],
-  },
-  {
-    title: 'Company',
-    links: [
-      { label: 'Blog', href: '/blog' },
-      { label: 'Careers', href: '/careers' },
-      { label: 'Contact', href: '/contact' },
-    ],
-  },
-  {
-    title: 'Legal',
-    links: [
-      { label: 'Privacy', href: '/privacy' },
-      { label: 'Terms', href: '/terms' },
-      { label: 'Security', href: '/security' },
-    ],
-  },
-] as const;
+import { NAV_LINKS, BRANDS, FEATURE_CARDS, FAQ_ITEMS, FOOTER_SECTIONS } from '../lib/landing-constants';
 
 export default function Home() {
   return (
@@ -144,9 +53,7 @@ export default function Home() {
 
             <div className="relative h-64 w-full my-8 flex items-center justify-center">
               <div className="absolute w-64 h-64 bg-purple-500/20 rounded-full blur-3xl" />
-              <div className="relative text-6xl" aria-hidden="true">
-                🚗
-              </div>
+              <Car size={96} className="relative text-purple-500 dark:text-purple-400" />
             </div>
 
             {/* Brand Logos */}

@@ -1,3 +1,5 @@
+import { Car, Zap, Gauge, Crown, Rocket, Gem, BarChart3 } from 'lucide-react';
+
 // Navigation
 export const NAV_LINKS = [
   { label: 'Marketplace', href: '/marketplace' },
@@ -8,31 +10,31 @@ export const NAV_LINKS = [
 
 // Brands
 export const BRANDS = [
-  { emoji: '🏎️', name: 'TOYOTA' },
-  { emoji: '⚫', name: 'BMW' },
-  { emoji: '⚡', name: 'TESLA' },
-  { emoji: '🎯', name: 'AUDI' },
-  { emoji: '⭐', name: 'MERCEDES' },
-  { emoji: '🏁', name: 'PORSCHE' },
+  { icon: Car, name: 'TOYOTA' },
+  { icon: Gauge, name: 'BMW' },
+  { icon: Zap, name: 'TESLA' },
+  { icon: Rocket, name: 'AUDI' },
+  { icon: Crown, name: 'MERCEDES' },
+  { icon: Car, name: 'PORSCHE' },
 ] as const;
 
 // Features/Cards
 export const FEATURE_CARDS = [
   {
     id: 'luxury',
-    emoji: '🚗',
+    icon: Gem,
     title: 'Used Exotic Luxury',
     description: 'Premium vehicles at market value',
   },
   {
     id: 'everyday',
-    emoji: '🏎️',
+    icon: Car,
     title: 'Modern Everyday Cars',
     description: 'Reliable vehicles for daily commute',
   },
   {
     id: 'investment',
-    emoji: '🎯',
+    icon: BarChart3,
     title: 'Smart Investment',
     description: 'Data-driven pricing insights',
   },
@@ -89,15 +91,3 @@ export const FOOTER_SECTIONS = [
     ],
   },
 ] as const;
-
-// Tailwind class constants
-export const CLASSES = {
-  navLink: 'text-white hover:text-purple-400 transition-colors font-medium text-sm',
-  featureCard:
-    'bg-gradient-to-br from-purple-900/40 to-black/40 border border-purple-600/30 rounded-xl p-6 hover:border-purple-500/60 transition-all',
-  featureCardImage:
-    'relative h-48 bg-gradient-to-br from-purple-800/20 to-black/20 rounded-lg mb-4 flex items-center justify-center',
-  faqItem:
-    'bg-purple-900/30 border border-purple-600/30 rounded-lg p-4 hover:border-purple-500/60 transition-all',
-  footerLink: 'hover:text-white transition-colors',
-} as const;

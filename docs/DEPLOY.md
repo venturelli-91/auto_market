@@ -304,7 +304,7 @@ docker-compose up -d
 
 # Verify services
 docker-compose logs -f
-curl http://localhost:3000  # Frontend
+curl http://localhost:5000  # Frontend
 curl http://localhost:3001/health  # Backend
 ```
 

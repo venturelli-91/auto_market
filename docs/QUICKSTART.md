@@ -109,13 +109,13 @@ pnpm dev
 ```
 
 This runs:
-- **Next.js** on `http://localhost:3000`
+- **Next.js** on `http://localhost:5000`
 - **Express** on `http://localhost:3001`
 
 You should see:
 ```
 apps/web:
-ready - started server on 0.0.0.0:3000
+ready - started server on 0.0.0.0:5000
 apps/api:
 ✓ Database connected
 ✓ Redis connected
@@ -126,7 +126,7 @@ apps/api:
 
 ## 6. Open in Browser
 
-Open [http://localhost:3000](http://localhost:3000)
+Open [http://localhost:5000](http://localhost:5000)
 
 You should see the AutoMarket home page.
 
@@ -194,21 +194,21 @@ docker-compose logs postgres  # Check for errors
 
 ---
 
-### "Port 3000 already in use"
+### "Port 5000 already in use"
 
 **Solution:** Change port in `apps/web/package.json` script:
 
 ```json
-"dev": "next dev -p 3001"
+"dev": "next dev -p 5001"
 ```
 
-Or kill the process using port 3000:
+Or kill the process using port 5000:
 ```bash
 # macOS/Linux
-lsof -i :3000 | grep LISTEN | awk '{print $2}' | xargs kill -9
+lsof -i :5000 | grep LISTEN | awk '{print $2}' | xargs kill -9
 
 # Windows (PowerShell admin)
-Get-Process -Id (Get-NetTCPConnection -LocalPort 3000).OwningProcess | Stop-Process -Force
+Get-Process -Id (Get-NetTCPConnection -LocalPort 5000).OwningProcess | Stop-Process -Force
 ```
 
 ---
@@ -254,7 +254,7 @@ pnpm dev
 ```
 automarket/
 ├── apps/
-│   ├── web/          ← Next.js frontend (port 3000)
+│   ├── web/          ← Next.js frontend (port 5000)
 │   └── api/          ← Express backend (port 3001)
 ├── packages/
 │   └── shared-types/ ← Shared TypeScript types

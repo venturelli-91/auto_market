@@ -52,7 +52,7 @@ automarket/
 │       ├── pre-tool-use.js
 │       └── post-tool-use.js
 ├── apps/
-│   ├── web/                         ← Next.js frontend (:3000)
+│   ├── web/                         ← Next.js frontend (:5000)
 │   │   ├── app/                     ← App Router pages
 │   │   ├── components/              ← Presentational only (no data fetching)
 │   │   ├── containers/              ← Data fetching via TanStack Query
@@ -125,7 +125,7 @@ docker-compose up -d       # Start PostgreSQL + Redis
 pnpm install               # Install all dependencies
 pnpm db:migrate            # Run migrations
 pnpm db:seed               # Seed sample data
-pnpm dev                   # Next.js :3000 + Express :3001
+pnpm dev                   # Next.js :5000 + Express :3001
 pnpm test                  # Jest + RTL (all tests)
 pnpm test:watch            # TDD mode — watch for changes
 pnpm lint                  # ESLint

@@ -50,7 +50,7 @@ For a **solo developer on a portfolio project**, microservices creates process o
 ```bash
 docker-compose up -d       # PostgreSQL + Redis
 pnpm install               # All workspaces
-pnpm dev                   # Next.js :3000 + Express :3001
+pnpm dev                   # Next.js :5000 + Express :3001
 ```
 
 **Microservices setup (correct implementation):**
