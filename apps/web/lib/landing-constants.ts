@@ -78,6 +78,7 @@ export const FOOTER_SECTIONS = [
     title: 'Company',
     links: [
       { label: 'Blog', href: '/blog' },
+      { label: 'Newsletter', href: '/newsletter' },
       { label: 'Careers', href: '/careers' },
       { label: 'Contact', href: '/contact' },
     ],
