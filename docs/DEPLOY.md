@@ -160,74 +160,23 @@ GRANT ALL PRIVILEGES ON DATABASE automarket TO automarket;
 ALTER DATABASE automarket SET rls = on;
 ```
 
-3. **Create base tables** (example schema, adapt to your needs)
-
-```sql
--- Dealers table
-CREATE TABLE dealers (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  name VARCHAR(255) NOT NULL,
-  email VARCHAR(255) UNIQUE NOT NULL,
-  website VARCHAR(255),
-  logo VARCHAR(255),
-  description TEXT,
-  is_verified BOOLEAN DEFAULT FALSE,
-  created_at TIMESTAMP DEFAULT NOW(),
-  updated_at TIMESTAMP DEFAULT NOW()
-);
-
--- Vehicles table
-CREATE TABLE vehicles (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  make VARCHAR(100) NOT NULL,
-  model VARCHAR(100) NOT NULL,
-  year INTEGER NOT NULL,
-  trim VARCHAR(100),
-  body_type VARCHAR(100),
-  fuel_type VARCHAR(50),
-  transmission VARCHAR(50),
-  mileage INTEGER,
-  condition VARCHAR(50),
-  color VARCHAR(100),
-  features JSONB DEFAULT '[]',
-  description TEXT,
-  created_at TIMESTAMP DEFAULT NOW(),
-  updated_at TIMESTAMP DEFAULT NOW()
-);
-
--- Listings table
-CREATE TABLE listings (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  dealer_id UUID NOT NULL REFERENCES dealers(id) ON DELETE CASCADE,
-  vehicle_id UUID NOT NULL REFERENCES vehicles(id) ON DELETE CASCADE,
-  price NUMERIC(10, 2) NOT NULL,
-  price_score JSONB, -- { badge, confidence, p25, p75, median, sample_size }
-  status VARCHAR(50) DEFAULT 'draft', -- draft, published, sold, delisted
-  published_at TIMESTAMP,
-  sold_at TIMESTAMP,
-  view_count INTEGER DEFAULT 0,
-  favorite_count INTEGER DEFAULT 0,
-  created_at TIMESTAMP DEFAULT NOW(),
-  updated_at TIMESTAMP DEFAULT NOW()
-);
-
--- Enable RLS on listings
-ALTER TABLE listings ENABLE ROW LEVEL SECURITY;
-
--- RLS Policy: dealers can only see their own listings
-CREATE POLICY "dealers_see_own_listings" ON listings
-  USING (dealer_id = (SELECT current_user_id FROM app.current_user));
-
--- Create indexes for performance
-CREATE INDEX idx_listings_dealer_id ON listings(dealer_id);
-CREATE INDEX idx_listings_published ON listings(published_at) WHERE status = 'published';
-CREATE INDEX idx_vehicles_make_model_year ON vehicles(make, model, year);
-```
-
-4. **Run migrations** (to be implemented)
+3. **Run migrations** (idempotent — safe to run multiple times)
 ```bash
-pnpm db:migrate
+pnpm --filter=api db:migrate
 ```
+
+This applies `migrations/001_initial.sql` which creates:
+- `dealers`, `vehicles`, `vehicle_images`, `listings` tables
+- Composite index `(make, model, year, mileage)` for `percentile_cont` pricing queries
+- RLS policies: public read for published listings, dealer-scoped writes
+- `schema_migrations` table to track applied migrations
+
+4. **Seed sample data** (optional, for demo)
+```bash
+pnpm --filter=api db:seed
+```
+
+Inserts 3 dealers and 20 published vehicle listings.
 
 ---
 
@@ -254,13 +203,14 @@ DATABASE_URL=postgresql://automarket:PASSWORD@db.automarket.com:5432/automarket
 # Redis
 REDIS_URL=redis://redis.automarket.com:6379
 
+# Auth
+JWT_SECRET=change-this-to-a-long-random-string-in-production
+JWT_EXPIRES_IN=7d
+
 # Cloudinary
 CLOUDINARY_CLOUD_NAME=xxxxx
 CLOUDINARY_API_KEY=xxxxx
 CLOUDINARY_API_SECRET=xxxxx
-
-# Anthropic
-ANTHROPIC_API_KEY=sk-proj-xxxxx
 
 # Security
 CORS_ORIGIN=https://automarket.com,https://www.automarket.com
