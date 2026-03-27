@@ -30,6 +30,7 @@ export interface MarketStats {
 
 export interface PricingInput {
   vehicle: Vehicle;
+  listingPrice: number;
   dealerLocation?: string; // state/region code
 }
 

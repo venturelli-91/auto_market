@@ -35,13 +35,13 @@ export class PricingEngine {
       if (!applicable) continue;
 
       const stats = await strategy.compute(input, this.pool);
-      const badge = assignBadge(input.vehicle.mileage, stats.p25, stats.p75);
+      const badge = assignBadge(input.listingPrice, stats.p25, stats.p75);
 
       // Confidence: log-scale from sample size, capped at 0.99
       const confidence = Math.min(0.99, Math.log10(stats.sampleSize + 1) / Math.log10(500));
 
       return {
-        listingPrice: input.vehicle.mileage,
+        listingPrice: input.listingPrice,
         marketStats: stats,
         badge,
         confidence: Math.round(confidence * 1000) / 1000,

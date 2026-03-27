@@ -29,6 +29,7 @@ export function startPricingWorker(pool: Pool): void {
 
     const result = await engine.calculate({
       vehicle: listing.vehicle,
+      listingPrice: listing.price,
       dealerLocation,
     });
 
