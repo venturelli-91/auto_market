@@ -3,7 +3,7 @@ import { Car, Zap, Gauge, Crown, Rocket, Gem, BarChart3 } from 'lucide-react';
 // Navigation
 export const NAV_LINKS = [
   { label: 'Marketplace', href: '/marketplace' },
-  { label: 'Features', href: '/features' },
+  { label: 'Blog', href: '/blog' },
   { label: 'About', href: '/about' },
   { label: 'Contact', href: '/contact' },
 ] as const;
